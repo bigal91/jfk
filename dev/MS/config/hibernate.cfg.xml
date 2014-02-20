@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+   	<property name="connection.datasource">java:/comp/env/jdbc/scc</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
+    <property name="show_sql">false</property>
+    <property name="current_session_context_class">thread</property>
+	<property name="hbm2ddl.auto">update</property>
+	<property name="hibernate.default_schema">survey</property>
+
+	<mapping class="de.cinovo.surveyplatform.model.Client" />
+	<mapping class="de.cinovo.surveyplatform.model.Page" />
+	<mapping class="de.cinovo.surveyplatform.model.Participant" />
+	<mapping class="de.cinovo.surveyplatform.model.Participation" />
+    <mapping class="de.cinovo.surveyplatform.model.Payment" />
+	<mapping class="de.cinovo.surveyplatform.model.Project" />
+	<mapping class="de.cinovo.surveyplatform.model.Questionnaire" />
+	<mapping class="de.cinovo.surveyplatform.model.QuestionnaireLogicElement" />
+	<mapping class="de.cinovo.surveyplatform.model.Section" />
+	<mapping class="de.cinovo.surveyplatform.model.Survey" />
+	<mapping class="de.cinovo.surveyplatform.model.SystemSettings" />
+	<mapping class="de.cinovo.surveyplatform.model.SystemUser" />
+	<mapping class="de.cinovo.surveyplatform.model.Token" />
+	<mapping class="de.cinovo.surveyplatform.model.Topic" />
+	<mapping class="de.cinovo.surveyplatform.model.UserGroup" />
+	<mapping class="de.cinovo.surveyplatform.model.UserRight" />
+	<mapping class="de.cinovo.surveyplatform.model.PersistentProperties" />
+	<mapping class="de.cinovo.surveyplatform.model.question.AbstractQuestion" />
+	<mapping class="de.cinovo.surveyplatform.model.question.Answer" />
+    <mapping class="de.cinovo.surveyplatform.model.question.AverageNumberQuestion" />
+	<mapping class="de.cinovo.surveyplatform.model.question.ComboQuestion" />
+	<mapping class="de.cinovo.surveyplatform.model.question.FreeTextQuestion" />
+	<mapping class="de.cinovo.surveyplatform.model.question.MultipleChoiceMatrixQuestion" />
+	<mapping class="de.cinovo.surveyplatform.model.question.MultipleChoiceQuestion" />
+	<mapping class="de.cinovo.surveyplatform.model.question.Option" />
+	<mapping class="de.cinovo.surveyplatform.model.question.PhoneCallerHint" />
+	<mapping class="de.cinovo.surveyplatform.model.question.RadioMatrixQuestion" />
+	<mapping class="de.cinovo.surveyplatform.model.question.RadioQuestion" />
+	<mapping class="de.cinovo.surveyplatform.model.question.SingleLineQuestion" />
+	<mapping class="de.cinovo.surveyplatform.model.question.TextfieldQuestion" />
+    <mapping class="de.cinovo.surveyplatform.model.question.TextPart" />
+    <mapping class="de.cinovo.surveyplatform.model.question.TopicCombination" />
+	<mapping class="de.cinovo.surveyplatform.model.reporting.GenericReportInfo" />
+
+  </session-factory>
+</hibernate-configuration>

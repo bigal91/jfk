@@ -1,0 +1,50 @@
+<div id="participantInfoDialog" title="Participant Information" style="display:none;">
+<div id="participantInfoDialogContent"></div>
+</div>
+<script type="text/javascript">
+/* <![CDATA[*/
+$(function() {
+
+$("#participantInfoDialog").dialog({
+	autoOpen: false,
+	height: 350,
+	width: 550,
+	modal: true,
+	open: function(event, ui) {
+		augmentDialogWithMaximizeButton($(this), 'participantInfoDialog');				
+	},
+	buttons: {
+		'Close' : function() {
+			$(this).dialog('close');
+		}
+	}, 
+	Cancel: function() {
+		$(this).dialog('close');
+	}
+});
+});
+
+function showParticipantInfo(id) {
+	ajax({
+		url: ("{$BASEURL$}/participant/retrieve?html=1&rw&participantID=" + id),			
+		type: "GET",
+		success:
+			function (result, status, xhr) {
+				if (xhr.status != 200) {
+				    var msg = "Sorry but there was an error: ";
+				    $('#participantInfoDialogContent').html(msg + xhr.status + " " + xhr.statusText);
+				} else {
+					$('#participantInfoDialogContent').html(result);
+				}
+				$('#participantInfoDialog').dialog('open');
+			},
+		error:
+			function (xhr, status, err) {
+			    var msg = "Sorry but there was an error: ";
+			    $('#participantInfoDialogContent').html(msg + xhr.status + " " + xhr.statusText);
+				$('#participantInfoDialog').dialog('open');
+			}
+	});	
+}
+/* ]]> */
+</script>

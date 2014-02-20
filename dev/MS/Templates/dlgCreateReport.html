@@ -1,0 +1,135 @@
+<div id="createReportDialog" title="Create Report" style="display:none;">
+	<form id="createReportForm" action="{$BASEURL$}/report/create">
+		<input type="hidden" name="surveyId" value="{SURVEYID}" />
+		<input type="hidden" id="decisionQuestion" name="decisionQuestionId" value="" />
+
+		<p style="margin: 10px 10px 0px 10px;"> Name your specific report: </p>
+		<input style="margin: 10px 0px 10px 30px;" type="text"  id="reportName" name="reportName"/>
+		<p style="margin: 10px 10px 0px 10px;"> You can write a short description for the report: </p>
+		<input style="margin: 10px 0px 10px 30px; width: 550px;" type="text" name="reportDescription" />
+		<p style="margin: 30px 10px 0px 10px;"> Select the report Type: </p>
+		<p style="margin: 10px 0px 5px 30px">
+			<input type="radio" name="deviationCheck" id="devID" /> <span>Deviation Report (Single Question)</span>
+		</p>
+		<p style="margin: 0px 0px 50px 30px">
+			<input type="radio" name="performanceCheck" id="perfID" /> <span>Performance Report (Multiple Questions)</span>
+		</p>
+
+		<p style="margin: 30px 10px 0px 10px;"> Select your Question(s): </p>
+		<select id ="questionDevSelector" style="margin: 10px 0px 10px 30px; width: 480px">
+			{DEVIATION_QUESTIONS_DROPDOWN}
+		</select>
+		<select id ="questionPerfSelector" style="margin: 10px 0px 10px 30px; width: 480px; display: none;">
+			{PERFORMANCE_QUESTIONS_DROPDOWN}
+		</select>
+		<button id="perfButtonID" onClick="return false;"> Add </button>
+
+
+		<ul style="margin: 10px 10px 0px 30px;" id="optionList" class="gui-dialog-element">
+		</ul>
+	</form>
+
+</div>
+<script type="text/javascript">
+/* <![CDATA[*/
+$(function() {
+
+	$('#devID').prop('checked', true);
+	$('#perfID').prop('checked', false);
+	$('#perfButtonID').hide();
+	$('#perfButtonID').button();
+
+
+	$("#createReportDialog").dialog({
+		autoOpen: false,
+		height: 660,
+		width: 800,
+		modal: true,
+		open: function(event, ui) {
+			augmentDialogWithMaximizeButton($(this), 'createReportDialog');
+		},
+		buttons: {
+			'Create Report': function() {
+			    if($('#questionDevSelector :selected').val() != 'empty'){
+					$('#decisionQuestion').val($('#questionDevSelector :selected').val());
+					if ($('#reportName').val() != null && $('#reportName').val() != ""){
+						$('#createReportForm').submit();
+						$(this).dialog('close');
+						showWait();
+					} else {
+						window.alert("Please chose a name for the report.");
+					}
+			    } else {
+			    	window.alert("Please select at least one Deviation-Question.");
+			    }
+			},
+			'Cancel' : function() {
+				$(this).dialog('close');
+			}
+		},
+		Cancel: function() {
+			$(this).dialog('close');
+
+
+		}
+	});
+
+	$('#devID').click(function() {
+		$('#perfID').prop('checked', false);
+		$('#perfButtonID').hide();
+		$('#questionDevSelector').show();
+		$('#optionList li').each(function (index) {
+			removeItem($(this).attr('id'));
+		});
+		$('#questionPerfSelector').hide();
+	});
+
+	$('#perfID').click(function() {
+		$('#devID').prop('checked', false);
+		if($('#questionPerfSelector').val() != 'empty'){
+			$('#perfButtonID').show();
+		}
+		$('#questionPerfSelector').show();
+		$('#questionDevSelector').hide();
+	});
+
+
+
+	$('#perfButtonID').live("click", (function() {
+		addOption();
+	}));
+
+
+});
+function removeItem(itemVal){
+	var maxLength = $('#questionPerfSelector option').length;
+	var option = $('#' + itemVal);
+	var optionAsHtml = '<option value="' + option.attr('id') + '" data-order="' + option.data('order') + '">' + option.text() + '</option>';
+
+	if (maxLength == 0){
+		$('#questionPerfSelector').append(optionAsHtml);
+	} else {
+		$('#questionPerfSelector option').each(function(index) {
+			if ($(this).data('order') > option.data('order')) {
+				$(optionAsHtml).insertBefore($(this));
+				return false;
+			} else if (index == (maxLength - 1)){
+				$(optionAsHtml).insertAfter($(this));
+				return false;
+			}
+		});
+	}
+	option.remove();
+}
+
+function addOption() {
+	if($('#questionPerfSelector').val() != '' && $('#questionPerfSelector :selected').text() != ''){
+		var valueString = new String($('#questionPerfSelector :selected').val());
+		$('#optionList').append('<li id="' + valueString + '" class="reportListItem" data-order="' + $('#questionPerfSelector :selected').data('order')+'"><span type="text">'+$('#questionPerfSelector :selected').text()+'</span><input class="gui-dialog-field-width gui-dialog-field-margin" type="hidden" name="questions[]" value="' + valueString + '" readonly/><a title="Remove" id="'+valueString+'" class="gui-icon-BIN_EMPTY" style="float:right; padding-right:10px;" onclick="removeItem(id);"></a></li>');
+		$('#questionPerfSelector :selected').remove();
+
+	}
+}
+
+/* ]]> */
+</script>

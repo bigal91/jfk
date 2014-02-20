@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<style type="text/css">
+
+{include:css/main.css}
+
+@page {
+	font-size: 10px;
+	font-family: sans-serif;
+	font: normal;
+
+   @bottom-right {
+    font-family: Arial;
+    font-size: 7pt;
+    font-weight: normal;
+    content: "Page " counter(page) " of " counter(pages);
+   }
+ }
+
+#pagenumber:before {
+	content: counter(page);
+}
+
+#pagecount:before {
+	content: counter(pages);
+}
+
+html, body {
+	color: #000000 !important;
+	font-family: sans-serif;
+	font: normal;
+	font-style: normal;
+	font-weight: normal;
+	background: #FFFFFF;
+}
+
+.questionarePage * {
+	font-size: 12px;
+}
+.questionarePage textarea {
+	width: 100%;
+	height: 200px;
+	font-size: 12px;
+}
+
+.questionarePage input[type=text] {
+	width: 90%;
+}
+
+.questionarePage h1 {
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.questionarePage h2 {
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.questionarePage h3 {
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.questionText p {
+	font-size: 13px;
+	page-break-after: avoid;
+}
+
+ul.questionarePage,ul.questionareSection {
+	list-style-type: none;
+	list-style-position: outside;
+	margin: 5px 0px 5px 0px;
+	padding: 10px;
+}
+
+.questionarePage {
+}
+
+.questionareSection {
+
+}
+
+.question {
+	margin: 5px 0px 5px 0px;
+	padding: 10px;
+	background: #FFFFFF;
+	page-break-inside: avoid;
+}
+
+.sectionTitle {
+	margin: 25px 0px 0px 0px;
+	padding: 3px;
+	height: 18px;
+	background: #CACACA;
+	font-weight: bold;
+	font-size: 13px;
+	page-break-after: avoid;
+}
+
+.aggregationContainerTitle {
+	margin-top: 10px;
+	font-weight: bold;
+	page-break-after: avoid;
+}
+
+#buttonsLeft {
+	width: 300px;
+	float: left;
+}
+
+#buttonsRight {
+	width: 300px;
+	float: right;
+	text-align: right;
+}
+
+.invisible {
+	display: none;
+}
+
+.invisibleSectionTitleForEditor {
+    display: none;
+}
+
+.questionTable {
+	width: 100%;
+	border-spacing: 0px;
+	border-collapse: collapse;
+}
+
+.questionTable td {
+	border: 1px #AEAEAE solid;
+	vertical-align: middle;
+	padding: 2px;
+}
+
+.questionarePage * {
+	font-family: Arial;
+	font-size: 12px;
+	color: #000000;
+}
+.questionarePage textarea {
+	width: 100%;
+	height: 200px;
+	font-size: 12px;
+	color: #000000;
+}
+
+.questionarePage input[type=text] {
+	width: 90%;
+}
+
+.questionarePage h1 {
+	font-weight: bold;
+	font-size: 18px;
+	color: #000000;
+}
+
+.questionarePage h2 {
+	font-weight: bold;
+	font-size: 15px;
+	color: #000000;
+}
+
+.questionarePage h3 {
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.questionText p {
+	color: #000000;
+	font-size: 13px;
+}
+.question {
+	page-break-inside: avoid;
+	margin: 5px 0px 5px 0px;
+	padding: 10px;
+	background: #FFFFFF;
+	border-bottom: 1px #CACACA solid;
+}
+
+.maxTrend {
+	color: #FFFFFF;
+	background: #CACACA;
+	font-weight: bold;
+}
+
+.maxTrendMore {
+	color: #FFFFFF;
+	background: #CACACA;
+	font-weight: bold;
+}
+
+.answerContainer {
+	 border-bottom: 1px solid #C9C9C9;
+	 padding: 5px 2px 2px 2px;
+}
+
+.questionarePage .additionalInfoContainer > div > div, .questionarePage .additionalInfoContainer > div > div * {
+    background-color: #FFF;
+    color: #000000;
+    font-style: italic;
+}
+
+.gui-icon-HELP {
+	background: url(./public/gfx/icons/help.png) no-repeat;
+	line-height: 16px;
+	height: 16px;
+	width: 16px;
+}
+
+</style>
+</head>
+<body>
+{QUESTIONNAIRE}
+</body>
+</html>

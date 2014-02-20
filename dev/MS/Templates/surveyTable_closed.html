@@ -1,0 +1,58 @@
+<div class="innerContainer">
+	<div class="helpNextToBigHeader">{help:table.closed}</div>
+<div class="pageSectionDivider">
+	<div class="pageSectionDividerRightContent"></div>
+	Closed Surveys
+</div>
+<!--<div class="pageSectionDivider">-->
+<!--	<div class="pageSectionDividerMiddleWrapper">-->
+<!--		<div class="pageSectionDividerMiddle"><div class="pageSectionDividerRightContent">{help:table.closed}</div></div>-->
+<!--	</div>-->
+<!--	<div class="pageSectionDividerLeft"><div class="pageSectionDividerTitle">Closed Surveys</div></div>-->
+<!--	<div class="pageSectionDividerRight"></div>-->
+<!--</div>-->
+<table id="surveyTableClosed" class="surveyTable" cellpadding="0" cellspacing="0" width="100%">
+	<thead>
+		<tr>
+			<th></th>
+			<th class="columnButtons">Actions</th>
+			<th class="columnName columnBigName">Name of Survey</th>
+			<th class="columnCreator">Owner</th>
+			<th class="columnResponserate">Response rate</th>
+			<th class="columnHighlight"></th>
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<td colspan="6">
+				<div style="margin: 3px 0px 3px 0px; text-align: left;">
+					{COMMANDS}
+				</div>
+			</td>
+		</tr>
+	</tfoot>
+	<tbody>
+		{ROWS_CLOSED}
+	</tbody>
+</table>
+</div>
+<script type="text/javascript">
+/* <![CDATA[*/
+	$(function() {
+		$('#surveyTableClosed').dataTable({
+		"aaSorting": [[ 2, "asc" ]],
+		"aaSortingFixed": [[5,'asc']],
+		"aoColumns": [
+		  			{"bSortable":false},
+		  			{"bSortable":false},
+		  			null,
+		  			null,
+		  			null,
+                    {"bVisible":false}  			
+		  		],
+		"sDom": 'fprt<"bottom"<"manageSurveysOverall"i>>'
+		  	{include:dataTableDefaultSettings.js}
+		});
+	});
+/* ]]> */
+</script>

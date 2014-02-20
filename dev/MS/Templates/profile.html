@@ -1,0 +1,41 @@
+<div class="innerContainer">
+	<p>
+		In this section you can manage your own profile.
+	</p>
+	{UPLOADLOGOINFO}
+	<div class="clear"></div>
+	<div style="margin: 30px 0 0 0"></div>
+
+<!--	<div class="pageSectionDivider">-->
+<!--		<div class="pageSectionDividerMiddleWrapper">-->
+<!--			<div class="pageSectionDividerMiddle"></div>-->
+<!--		</div>-->
+<!--		<div class="pageSectionDividerLeft"><div class="pageSectionDividerTitle">My Logo</div></div>-->
+<!--		<div class="pageSectionDividerRight"></div>-->
+<!--	</div>-->
+	{UPLOADLOGOPART}
+	<div class="pageSectionDivider">My Profile</div>
+<!--	<div class="pageSectionDivider">-->
+<!--		<div class="pageSectionDividerMiddleWrapper">-->
+<!--			<div class="pageSectionDividerMiddle"></div>-->
+<!--		</div>-->
+<!--		<div class="pageSectionDividerLeft"><div class="pageSectionDividerTitle">My Profile</div></div>-->
+<!--		<div class="pageSectionDividerRight"></div>-->
+<!--	</div>-->
+	<div style="width: 390px; margin: 0px 0px 0px 0px;">
+		{TABLE}
+	</div>
+</div>
+{DLGCHANGEPASSWORD}
+{DLGMANAGEALIASES}
+<script type="text/javascript">
+/* <![CDATA[*/
+	$(document).ready(function() {
+		$("#bUploadLogo").button();
+		$("#bRemoveLogo").button();
+		$("#bManageAliases").button();
+
+		getFeedBack("page.profile", '#feedBackContainer');
+	});
+/* ]]> */
+</script>

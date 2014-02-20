@@ -21,6 +21,8 @@ public class ServerStartup
 {
 	private final static Integer serverPort = 12300;
 	
+	public static String environmentConfigFile;
+	
     public static void main(String[] args) throws Exception
     {
     	/* Pre-Server Management */
@@ -38,7 +40,7 @@ public class ServerStartup
 
         // AbstractConnector connector;
         ServletContextHandler context = new ServletContextHandler(server, "/");
-        context.setResourceBase("./" + ResourcePaths.WEBCONTENT);
+        context.setResourceBase("./" + ResourcePaths.WC);
         
         /* Session Management */
         SessionManager sessionManager = new HashSessionManager();

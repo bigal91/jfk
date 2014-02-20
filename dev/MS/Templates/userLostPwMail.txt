@@ -1,0 +1,20 @@
+<br />
+<p>This E-Mail has been sent to you, because you have requested a Password-Reset.</p>
+<br />
+<br />
+<p>If you have not requested a reset for your password, then just ignore this E-Mail.</p>
+<br />
+<br />
+<p>In case you HAVE requested a reset, please follow the instructions below:</p>
+<br />
+<p>1.) Click on the Token-Link that will provide you to the "Password-Reset" Page:</p>
+<br />
+{TOKENLINK}
+<br />
+<p>2.) On the Password-Reset Page, you can change your password and relog with it, after submitting the new password.</p>
+<br />
+<p>3.) You will get another confirmation E-Mail afterwards.</p>
+<br />
+Regards,<br />
+<br />
+The Metior Solutions SurveyPlatform<br />

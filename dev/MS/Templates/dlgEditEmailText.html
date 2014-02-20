@@ -1,0 +1,94 @@
+<div id="editEmailTextDialog" title="Edit Email Text" style="display:none;">
+	<form id="editEmailText" name="editMailText">
+		<input type="hidden" name="surveyID" value="{SURVEYID}" />
+		<input type="hidden" name="textType" id="textType" value="" />
+        <p>
+            You may edit the <b>E-Mail Subject (e.g. Invitation to survey)</b> below:
+        </p>
+        <input type="text" name="emailSubject" id="emailSubject" value="" style="width: 490px; height: 20px;" />
+		
+		<p>
+			<b>You may edit the <b>text of the email</b> in the textfield below:</b>
+		</p>
+		<p>
+			<textarea class="tinyEditor" name="emailText" id="emailText" style="width: 490px; height: 280px; font-family: monospace;"></textarea>
+		</p>
+	</form>
+</div>
+<div id="editTestEmailReceiver" title="Receiver of the test-mail" style="display: none;" class="testMailDialog">
+	<p>
+	    Enter the email address of the receiver of the test-mail:
+	</p>
+	<p>
+	    <input type="email" name="testMailReceiver" id="testMailReceiver" value="{SYSUSERMAIL}" style="width: 490px; height: 20px;" />
+	</p>
+</div>
+<script type="text/javascript">
+/* <![CDATA[*/
+$(function() {
+
+	$("#editEmailTextDialog").dialog({
+		autoOpen: false,
+		height: 515,
+		width: 800,
+		modal: true,
+		open: function(event, ui) {
+			var ed = tinyMCE.get('emailText');
+			var currentValue = document.editMailText.emailText.value;
+			ed.setContent(currentValue);
+			augmentDialogWithMaximizeButton($(this), 'editEmailTextDialog');
+		},
+
+		buttons: {
+			'Send Testmail' : function(){
+				$('#editTestEmailReceiver').dialog('open');	
+			},
+			'Save Text': function() {
+				$(this).dialog('close');
+				$('#emailText').val(tinyMCE.get('emailText').getContent());
+				ajax({
+					url: ("{$BASEURL$}/survey/update"),
+					type: "POST",
+					data: $('#editEmailText').serialize()
+				});
+			},
+			'Cancel & Close' : function() {
+				$(this).dialog('close');
+			}
+		},
+		Cancel: function() {
+			$(this).dialog('close');
+		}
+	});
+	
+	$('#editTestEmailReceiver').dialog({
+        autoOpen: false,
+        height: 215,
+        width: 700, 
+        modal: true,
+        buttons: {
+            'Send Testmail' : function(){
+                $('#emailText').val(tinyMCE.get('emailText').getContent());
+                ajax({
+                    url: ("{$BASEURL$}/survey/update"),
+                    type: "POST",
+                    data: $('#editEmailText').serialize() + "&" + $("#testMailReceiver").serialize() + "&sendEmailTest",
+                    success: function() {
+                        alert('An Email has been sent to: ' + $("#testMailReceiver").val());
+                        $('#editTestEmailReceiver').dialog('close');
+                    }
+                });
+            },
+
+            'Cancel' : function() {
+                $(this).dialog('close');
+            }
+        },
+        Cancel: function() {
+            $(this).dialog('close');
+        }		
+	});
+
+});
+/* ]]> */
+</script>

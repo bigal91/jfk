@@ -1,0 +1,38 @@
+<div id="createGroupDialog" title="Create Group" style="display:none;">
+
+	<form id="createGroupForm" action="{$BASEURL$}/group/create">
+	<p>
+		Please enter a name for the new group:
+		<input type="hidden" name="clientID" value="{CLIENTID}" />
+	</p>
+	{TABLE_EDITGROUP}
+	</form>
+</div>
+<script type="text/javascript">
+/* <![CDATA[*/
+$(function() {
+	$("#createGroupDialog").dialog({
+		autoOpen: false,
+		height: 520,
+		width: 700,
+		modal: true,
+		open: function(event, ui) {
+			augmentDialogWithMaximizeButton($(this), 'createGroupDialog');
+		},
+		buttons: {
+			'Create Group': function() {
+				$(this).dialog('close');
+				showWait();
+				$('#createGroupForm').submit();
+			},
+			'Cancel' : function() {
+				$(this).dialog('close');
+			}
+		},
+		Cancel: function() {
+			$(this).dialog('close');
+		}
+	});
+});
+/* ]]> */
+</script>

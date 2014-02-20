@@ -1,0 +1,21 @@
+ajax({
+	url: ("{$BASEURL$}/participant/update?participantID={PARTICIPANTID}&" + $('#{ID}editableTextField').serialize()),
+	type: "GET",
+	success:
+		function (result) {
+			var obj = jQuery.parseJSON(result);
+			if (obj != null) {
+				var newValue = obj.{ID};
+				if (typeof newValue == 'undefined') {
+					newValue=obj.properties.{ID};
+				}				
+				$('#{ID}').text(newValue);
+				$('#{ID}{PARTICIPANTID}').text(newValue);
+			}			
+		},
+	error:
+		function (xhr, status, err) {
+		    var msg = "Sorry but there was an error: ";
+		    $('#participantInfoDialogContent').html(msg + xhr.status + " " + xhr.statusText);
+		}
+});

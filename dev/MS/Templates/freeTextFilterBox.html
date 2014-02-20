@@ -1,0 +1,490 @@
+<div style="text-align: right;">
+	<div style="float: right; width:100px; height:38px;" class="link dataMapsterLogo" onclick="$('#freeTextAnalyzer{ID}').slideToggle(); $('#show{ID}').toggle(); $('#hide{ID}').toggle(); toggleAnswerMarks('{ID}',$('#hide{ID}').is(':visible')); sortTopics{ID}();"></div>
+	<a class="link" style="float: right; padding-top: 12px;" href="javascript:void(0);" onclick="$('#freeTextAnalyzer{ID}').slideToggle(); $('#show{ID}').toggle(); $('#hide{ID}').toggle(); toggleAnswerMarks('{ID}',$('#hide{ID}').is(':visible')); sortTopics{ID}();">
+			<span class="link orangeFont" id="show{ID}">Show</span>
+			<span class="link orangeFont" id="hide{ID}" style="display:none;">Hide</span>
+	</a>
+</div>
+<br />
+<br />
+<br />
+<div id="freeTextAnalyzer{ID}" style="display: none;">
+    <div style="margin: 10px 0 0 440px; width: 450px; position: absolute;">
+	    <a href="javascript:void(0);" class="button smallButton" onclick="createTopicFromFilter{ID}();" title="Create a topic from the current filter">Create Topic</a>
+	    <a href="javascript:void(0);" class="button smallButton" onclick="$('#freeTextFilterBoxContainer{ID}').slideToggle();" title="Show keyword hint list">Hint List</a>
+	    <a href="javascript:void(0);" class="button smallButton" id="btnShowExportForm{ID}" title="Export the topics">Export Topics</a>
+	    <form name="exportForm" id="exportForm{ID}" class="exportForm dropDownForm ui-corner-bl ui-corner-br">
+	        <p  style="line-height: 25px;">
+	            <a href="{$BASEURL$}/download?type=topics&refQuestionId={QUESTIONID}&count={COUNT}" title="Export the topics to an MS-Excel&reg; Document" class="nounderline"><img src="./gfx/icons/table_go.png" border="0" /> To Excel</a><br />
+	            <a href="{$BASEURL$}/download?type=freemind&refQuestionId={QUESTIONID}&count={COUNT}" title="Export the topics to a FreeMind Document" class="nounderline"><img src="./gfx/icons/freemind_go.png" border="0" /> To Freemind</a>
+	        </p>
+	    </form>  
+    </div>
+	<label for="sFilter{ID}"><b>Filter</b></label>
+	<input style="width: 300px; margin: 10px 5px 15px 10px;" id="sFilter{ID}"></input>
+    <a href="javascript:void(0);" onclick="$('#sFilter{ID}').val(''); doFilter{ID}();" title="Clear the filter" style="color: #86B9E4;">clear</a>
+
+	<div id="freeTextFilterBoxContainer{ID}" class="freeTextFilterBoxContainer">
+        <div style="width:22px; height:22px; display: block;margin-left:827px;">
+		  <a href="javascript:void(0);" onclick="$('#freeTextFilterBoxContainer{ID}').slideUp();" class="gui-icon-button-TEXT_LIST_BULLETS_CLOSE" title="Hide Keyword hint list" style="margin: 5px 0px 0px 8px; clear:left;display: block;float:none;"></a>
+		</div>
+		<div class="hintListContainer">
+			{ITEMS}
+		</div>
+	</div>
+	<div id="freeTextFilterTopicContainer{ID}" class="freeTextFilterTopicContainer">
+		<div class="itemContainer">
+			{TOPICS}
+		</div>
+	</div>
+
+	<div id="topicTitleDialog{ID}" title="Topic title" style="display:none;">
+		<form id="topicTitleDialog{ID}Form" onsubmit="return false;">
+			<table cellpadding="0" cellspacing="0" class="gui-dialog-table">
+				<tr>
+					<td style="width: 150px;">
+						Title of the topic:
+					</td>
+					<td>
+					 	<input type="text" name="title" id="topicTitle{ID}" value="" class="gui-dialog-element" />
+					 	<input type="hidden" name="add" value="yepp" class="gui-dialog-element" />
+					 	<input type="hidden" name ="answerIds" id="topicAnswerIDs{ID}" value="" class="gui-dialog-element" />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+					 	<span id="topicAnswerSpan{ID}" style="margin-top: 10px;"></span>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div id="assignPartTextDialog{ID}" title="Assign to topic" style="display:none;">
+	   <form id="assignPartTextDialog{ID}Form" onsubmit="return false;">
+	       <table cellpadding="0" cellspacing="0" class="gui-dialog-table">
+	           <tr>
+	               <td>The selected answer is:</td>
+	           </tr>
+	           <tr>
+	               <td id="answerCutPart{ID}" style="padding: 0 0 0 20px; font-size: 110%; font-weight: bold;"></td>
+	               <td><input type="hidden" name="answerIds" id="answerComboPart{ID}" value="" class="gui-dialog-element" /></td>
+	           </tr>
+	           <tr>
+	               <td>Create a new topic with the selected answer:</td>
+	           </tr>
+	           <tr>
+	               <td>
+	                   <input type="text" name="title" id="newTopicName{ID}" value="New Topic" class="gui-dialog-element" />
+	               </td>
+	           </tr>
+	           <tr>
+	               <td><span id="chooseTopicHeadline{ID}">or choose an existing topic to assign your selected answer to:</span></td>
+	           </tr>
+	           <tr><td id="existingTopics{ID}"></td></tr>
+	       </table>
+	   </form>
+	</div>
+</div>
+<script type="text/javascript">
+/* <![CDATA[*/
+ 	$(function() {
+	    cutMode = false;
+ 		_topicFilterEnable{ID} = '';
+		$("#topicTitleDialog{ID}").dialog({
+			autoOpen: false,
+			height: 300,
+			width: 750,
+			modal: true,
+			open: function(event, ui) {
+				augmentDialogWithMaximizeButton($(this), 'topicTitleDialog{ID}');
+			},
+			buttons: {
+				'Ok': function() {
+					var title = $("#topicTitle{ID}").val();
+					if(title == ""){
+						alert('Please chose a Title for the Topic.');
+					} else {
+						ajax({
+							url: ("{$BASEURL$}/topic/create?qref={QUESTIONID}&boxId={ID}"),
+							type: "POST",
+							data: $("#topicTitleDialog{ID}Form").serialize(),
+							success:
+								function (result){
+								   $("#topicTitleDialog{ID}").dialog('close');
+                                   if (result != '') {
+                                	   highLight($(result).appendTo('#freeTextFilterTopicContainer{ID} > .itemContainer').first());
+                                       sortTopics{ID}();
+                                   }
+                                   toggleAnswerMarks('{ID}',true);
+								}
+						});
+						
+					}
+				},
+				'Cancel': function() {
+					$(this).dialog('close');
+				}
+			},
+			Cancel: function() {
+				$(this).dialog('close');
+			}
+		});
+		
+		$("#assignPartTextDialog{ID}").dialog({
+            autoOpen: false,
+            height: 500,
+            width: 750,
+            modal: true,
+            open: function(event, ui) {
+                augmentDialogWithMaximizeButton($(this), 'assignPartTextDialog{ID}');
+                $("#newTopicName{ID}").val('New Topic');
+                $("#newTopicName{ID}").focus();
+                $("#newTopicName{ID}").select();
+            },
+            buttons: {
+                'Create new topic': function() {
+                	var markedText = $("#answerCutPart{ID}").text();
+                	if($("#newTopicName{ID}").val().length > 0){
+                        ajax({
+                            url: ("{$BASEURL$}/topic/create?qref={QUESTIONID}&boxId={ID}&add=y"),
+                            type: "POST",
+                            data: $("#assignPartTextDialog{ID}Form").serialize(),
+                            success:
+                                function (result) {
+                                    $("#assignPartTextDialog{ID}").dialog('close');
+                                    $("#answerCutPart{ID}").text("");
+                                    $("#existingTopics{ID}").html("");
+                                    if (result != '') {
+                                    	highLight($(result).appendTo('#freeTextFilterTopicContainer{ID} > .itemContainer').first());
+                                        sortTopics{ID}();
+                                    }
+                                    toggleAnswerMarks('{ID}',true);
+                                }
+                        });
+                        $("#answerCutPart{ID}").text("");
+	                    $(this).dialog('close');
+                	} else {
+                		alert("The topic title is empty. Please give your topic a title.");
+                	}
+                },
+                'Cancel': function() {
+                	$("#existingTopics{ID}").html("");
+                	$("#answerCutPart{ID}").text("");
+                    $(this).dialog('close');
+                }
+            },
+            Cancel: function() {
+            	$("#answerCutPart{ID}").text("");
+            	$("#existingTopics{ID}").html("");
+                $(this).dialog('close');
+            }
+        });
+
+		/** click on topic starts the topicFiltering **/
+		$('.topic{ID}').live('click', function() {
+			$("#sFilter{ID}").val("Topic: " + $(this).find(".itemText").text());
+			_topicFilterEnable{ID} = $(this).attr('id').substring(5);
+		    doTopicFilter{ID}($(this).find('.itemText').data('combo'));
+		});
+
+		/** register click on delete topic command **/
+		$('.topic{ID}').find('.deleteTopic').live('click', function() {
+			var topicTable = $(this).parent().parent().parent().parent();
+			if (confirm('Do you really want to remove the topic:\n' + topicTable.find('.topicTitle').text() + '\n\nCaution: This action cannot be undone!')) {
+				var topicId = topicTable.attr('id').substring(5);
+				ajax({
+					url: ("{$BASEURL$}/topic/delete?topic=" + topicId + "&boxId={ID}"),
+					type: "GET",
+					success:
+						function (result) {
+							$('#topic' + topicId).parent().remove();
+							$("#topicTitleDialog{ID}").dialog('close');
+							$('#topicAnswerIDs{ID}').val("");
+							$('#topicAnswerSpan{ID}').text("");
+							$('#sFilter{ID}').val('');
+							toggleAnswerMarks('{ID}',true);
+						}
+				});
+			}
+		});
+
+        /** register click on edit topic command **/
+		$('.topic{ID}').find('.editTopic').live('click', function() {
+			var topicTable = $(this).parent().parent().parent().parent();
+			var title = topicTable.find('.topicTitle').text();
+			$('#topicAnswerIDs{ID}').val('');
+			$('#topicAnswerSpan{ID}').text('');
+			$('#topicTitle{ID}').val(title);
+			$('#topicTitleDialog{ID}').dialog('option', 'buttons', getEditTopicButtons{ID}(topicTable.attr('id').substring(5)));
+			$('#topicTitleDialog{ID}').dialog('open');
+			$('#topicTitle{ID}').focus().select();
+		});
+
+		/** gray box where the user can drop answers to create a new topic **/
+		$('.createTopic{ID}').droppable({
+			hoverClass: "topicDropTargetHover",
+			drop: function(event, ui) {
+				var droppedAnswer = $(ui.draggable).parent().parent().find('answer').text();
+				var answers = '';
+				var answerIDs = '';
+				$(".answerContainer > .answer:not('.ui-draggable-dragging')").each (function() {
+		            if ($(this).text() == droppedAnswer) {
+		                answerIDs += '::' + $(this).data("answerid") + "_-1_-1_1";
+		            }
+		        });	
+				$('#topicAnswerIDs{ID}').val(answerIDs);
+				$('#topicTitle{ID}').val("New Topic");
+				$('#topicAnswerSpan{ID}').text('Find a title for the answer: "' + $(ui.draggable).parent().parent().text() + '"');
+				$('#topicTitleDialog{ID}').dialog('option', 'buttons', getCreateTopicButtons{ID}());
+				$('#topicTitleDialog{ID}').dialog('open');
+				$('#topicTitle{ID}').focus().select();
+			}
+		});
+
+		/** the user clicks on a topic item => filter the answers according to that topic **/
+		$("a.item{ID}").click(function() {
+			$("#sFilter{ID}").val($("#sFilter{ID}").val() + " " + $(this).children(".itemText{ID}").text());
+			doFilter{ID}();
+		});
+
+	    /** run the filter everytime the user typed a character into the filter textbox **/
+		$("#sFilter{ID}").keyup(function() {
+			doFilter{ID}();
+		});
+
+	    /** open/close the export topic form **/
+		$("#btnShowExportForm{ID}").click(function() {
+		       $('#exportForm{ID}').fadeToggle('fast');
+		});
+
+	    /** close the export topic form when the user selects an item **/
+		$('#exportForm{ID} a').click(function() {
+               $('#exportForm{ID}').slideUp('fast');
+        });
+
+	    /** clear the filter when clicking on the icon **/
+		$("#clearFilter{ID}").click(function(){
+			$("#sFilter{ID}").val("");
+		});
+
+	});
+	
+	/** sort the topics by item/answer count **/
+    function sortTopics{ID}() {
+        $('#freeTextFilterTopicContainer{ID} > .itemContainer > div').sortElements(function(a, b){
+            return $(b).find('.itemText').data('itemcount') - $(a).find('.itemText').data('itemcount');
+        });
+    }
+
+    /** creates a topic according to the text in the filter and filtered answers **/
+	function createTopicFromFilter{ID}() {
+		var answers = '';
+		var answerIds = '';
+		$('.answer{ID}').not('.filtered').each(function() {
+			var text = $(this).text();
+            answerIds += '::' + $(this).data("answerid") + "_-1_-1_1";
+		});
+		$('#topicAnswerIDs{ID}').val(answerIds);
+		$('#topicAnswerSpan{ID}').text('');
+		$('#topicTitle{ID}').val($("#sFilter{ID}").val().trim());
+		$('#topicTitleDialog{ID}').dialog('option', 'buttons', getCreateTopicButtons{ID}());
+		$('#topicTitleDialog{ID}').dialog('open');
+		$('#topicTitle{ID}').focus().select();
+	}
+
+
+
+	
+	/**
+	 * adds an answer to a already existing topic
+	 */
+	function addAnswerToTopic{ID}(answerIds, topicId) {
+		$("#assignPartTextDialog{ID}").dialog('close');
+		ajax({
+			url: ("{$BASEURL$}/topic/update?qref={QUESTIONID}&boxId={ID}"),
+			type: "POST",
+			data: 'topic=' + topicId + "&add=yepp&answerIds=" + answerIds,
+			success:
+				function (result) {
+					if (result != '') {
+						$('#topic' + topicId).parent().remove();
+						$('#freeTextFilterTopicContainer{ID} > .itemContainer').append(result);
+						sortTopics{ID}();
+						toggleAnswerMarks('{ID}', true);
+                        topicHighLight(topicId);
+					}
+				}
+		});
+	}
+	
+	/**
+     * removes an answer from a topic
+     */
+    function removeAnswerFromTopic{ID}(answerId, topicId) {
+        $("#assignPartTextDialog{ID}").dialog('close');
+        ajax({
+            url: ("{$BASEURL$}/topic/update?qref={QUESTIONID}&boxId={ID}"),
+            type: "POST",
+            data: 'topic=' + topicId + "&rmv=" + answerId,
+            success:
+                function (result) {
+                    if (result != '') {
+                        $('#topic' + topicId).parent().remove();
+                        $('#freeTextFilterTopicContainer{ID} > .itemContainer').append(result);
+                        sortTopics{ID}();
+                        toggleAnswerMarks('{ID}', true);
+                        topicHighLight(topicId);
+                    }
+                }
+        });
+    }
+	
+	
+	function indicateFilterEnabled{ID}() {
+		var filterTextBox =  $("#sFilter{ID}");
+        if (filterTextBox.val() == "") {
+        	filterTextBox.css('background-color', '#FFF');
+        } else {
+        	filterTextBox.css('background-color', '#FFE4A9');
+        }
+	}
+
+	/** run the filter **/
+	function doFilter{ID}() {
+		 $('.answerHoverControl').remove();
+		indicateFilterIsRunning{ID}();
+		_topicFilterEnable{ID} = '';
+		var searchText = $("#sFilter{ID}").val().toLowerCase();
+		var searchWordArray = prepareSearchWordArray(searchText);
+		$(".answer{ID}").each(function(e2) {
+			var hit = true;
+            var answerText = $(this).text();
+
+			if (searchText != "") {
+				for (key in searchWordArray) {
+					var searchItem = searchWordArray[key];
+					if ((answerText.toLowerCase().indexOf(searchItem) != -1) || searchItem == "" || searchItem == " " ) {
+					    continue;
+					} else {
+						hit = false;
+					}
+				}
+			}
+			if (hit == true) {
+				show($(this));
+			} else {
+				blend($(this));
+			}
+		});
+		indicateFilterIsReady{ID}();
+        indicateFilterEnabled{ID}();
+	}
+
+	
+	/**
+	 * filter all answers belonging to the given combiId (which is actually a string of concatinated topicCombinations containing the answer IDs and the cut information)
+	 */
+	function doTopicFilter{ID}(topicCombinations) {
+		$('.answerHoverControl').remove();
+		indicateFilterIsRunning{ID}();
+		//hide all answers
+		$(".answer{ID}").each(function(e1) {
+            blend($(this));
+		});
+
+        var tcList = splitTopicCombination(topicCombinations);
+        var size = tcList.length;
+        for (i = 0; i < size; i++) {
+			var combinationPart = tcList[i];
+			$(".answer{ID}").each (function(e2) {
+	            var hit = false;
+	            if ($(this).data("answerid") == combinationPart.answerID) {
+	                hit = true;
+	            }
+	            if (hit) {
+	            	show($(this), combinationPart.id);
+	            }
+	        });
+		}
+		indicateFilterIsReady{ID}();
+        indicateFilterEnabled{ID}();
+	}
+
+	/**
+	 * Creates the code for the "Create Topic" dialog
+	 */
+	function getCreateTopicButtons{ID}() {
+		return {
+			'Create': function() {
+				ajax({
+					url: ("{$BASEURL$}/topic/create?qref={QUESTIONID}&boxId={ID}"),
+					type: "POST",
+					data: $("#topicTitleDialog{ID}Form").serialize(),
+					success:
+						function (result) {
+							$("#topicTitleDialog{ID}").dialog('close');
+							$('#topicAnswerIDs{ID}').val("");
+							$('#topicAnswerSpan{ID}').text("");
+							if (result != '') {
+								highLight($(result).appendTo('#freeTextFilterTopicContainer{ID} > .itemContainer').first());
+							    sortTopics{ID}();
+							}
+							toggleAnswerMarks('{ID}',true);
+						}
+				});
+			},
+			'Cancel': function() {
+				$(this).dialog('close');
+			}
+		};
+	}
+
+    /**
+     * Creates the code for the "EditTopic" dialog
+     */
+	function getEditTopicButtons{ID}(topicId) {
+		return {
+			'Save': function() {
+				ajax({
+					url: ("{$BASEURL$}/topic/update?topic=" + topicId + "&boxId={ID}"),
+					type: "POST",
+					data: $("#topicTitleDialog{ID}Form").serialize(),
+					success:
+						function (result) {
+							if (result != '') {
+								var topicElement = $('#topic' + topicId).parent();
+								var previousElement = topicElement.prev();
+								topicElement.remove();
+								if (previousElement.size()==0) {
+									$('#freeTextFilterTopicContainer{ID} > .itemContainer').prepend(result);
+								} else {
+                                    $(result).insertAfter(previousElement);
+								}
+							    //sortTopics{ID}();
+							    topicHighLight(topicId);
+							}
+							$("#topicTitleDialog{ID}").dialog('close');
+							$('#topicAnswerIDs{ID}').val("");
+							$('#topicAnswerSpan{ID}').text("");
+							toggleAnswerMarks('{ID}',true);
+						}
+				});
+			},
+			'Cancel': function() {
+				$(this).dialog('close');
+			}
+		};
+	}
+
+	function indicateFilterIsRunning{ID}() {
+		$('#sFilter{ID}').css('background', '#FFF696');
+		$('#sFilter{ID}').css('font-style', 'italic');
+	}
+
+	function indicateFilterIsReady{ID}() {
+		$('#sFilter{ID}').css('background', 'none');
+		$('#sFilter{ID}').css('font-style', 'normal');
+	}
+// ]]>
+</script>
+

@@ -1,0 +1,62 @@
+<style type="text/css"> 
+	#surveyList { list-style-type: none; margin: 10px; padding: 0; width: 60%; }
+	#surveyList li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; cursor: default; }
+	#surveyList li span { font-size: 0.8em; margin: 5px; }
+</style> 
+Name: <input type="text" name="surveyName" id="surveyNameTextBox" value="" /><input type="button" name="createSurveyButton" id="createSurveyButton" value="Create Survey" />
+<ul id="surveyList">
+</ul>
+<script type="text/javascript">
+/* <![CDATA[*/
+	function createSurveyListItemOptions(id) {
+		return '<span><a href="?page=survey&surveyID=' + id + '">Edit</a> <a href="">Delete</a> <a href=""></span>';
+	}
+
+	function addSurveyListItem(text, id, isNew) {
+		if (isNew) {
+			$("#surveyList").prepend($('<li class="gui-list-item gui-new">' + text + createSurveyListItemOptions(id) + '</li>').attr("id", "survey_" + id).hide().fadeIn("slow"));
+		} else {
+			$("#surveyList").append($('<li class="gui-list-item">' + text + createSurveyListItemOptions(id) + '</li>').attr("id", "survey_" + id).hide().fadeIn("slow"));
+		}
+	}
+
+	$('.gui-list-item').live('mouseenter', function() {
+		  $(this).addClass("gui-list-item-hover");
+	});
+	$('.gui-list-item').live('mouseleave', function() {
+		  $(this).removeClass("gui-list-item-hover");
+	});
+	
+	function createSurvey(name) {
+		$.ajax({
+			url: ("{$BASEURL$}/survey/create?name=" + name),			
+			type: "GET",
+			success:
+				function (result) {
+					var obj = jQuery.parseJSON(result);
+					addSurveyListItem(obj.name, obj.id, true);
+				}
+		});
+	}
+
+	function getSurveyList() {
+		$.ajax({
+			url: ("/survey/retrieve"),			
+			type: "GET",
+			success:
+				function (result) {
+					var obj = jQuery.parseJSON(result);
+					for (i = 0; i < obj.length; i++) {
+						addSurveyListItem(obj[i].name, obj[i].id, false);
+					}
+				}
+		});
+	}
+
+	$("#createSurveyButton").click(function() {
+		createSurvey($("#surveyNameTextBox").val());
+	});
+
+	getSurveyList();
+/* ]]> */
+</script>

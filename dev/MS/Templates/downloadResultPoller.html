@@ -1,0 +1,45 @@
+<div id="taskContent{MD5TASKID}">
+	<p>
+		<span id="taskProgress{MD5TASKID}">{MESSAGE}: Preparing...</span>
+	</p>
+	<div id="taskProgressbar{MD5TASKID}" style="width: 70%; margin: 0 auto 0 125px; height: 15px;"></div>
+</div>
+<iframe id="downloadLinkFrame" style="display:none;"></iframe>
+<script type="text/javascript">
+/* <![CDATA[*/
+$(function() {
+	$("#taskProgressbar{MD5TASKID}").progressbar({ value: 0 });
+
+	var reportResultPoller{MD5TASKID} = setInterval(function() {
+		ajax({
+			showWait: false,
+			url: (_baseurl + "/feedback/retrieve?json=1&taskId={TASKID}"),
+			type: "GET",
+			success:
+				function (result) {
+					if (result != "") {
+						var obj = jQuery.parseJSON(result);
+						if (obj != null) {
+							if (obj.statusCode == 'FINISHED') {
+								clearInterval(reportResultPoller{MD5TASKID});
+								$.ajax({
+									  url: (_baseurl + "/feedback/retrieve?taskId={TASKID}&result=1"),
+									  cache: true,
+									  success: function(result){
+										$('#downloadLinkFrame').attr('src',result);
+									    $("#taskContent{MD5TASKID}").html('The file has been created for you. If the download does not start automatically, click on the following link to download:<p style="text-align: center;"><a class="gui-icon-PDF_BIG" style="display: block; width: 150px; margin: 20px auto;" href="'+result+'">Click here to Download</a></p>');
+									  }
+								});
+
+							} else {
+								$("#taskProgress{MD5TASKID}").text("{MESSAGE}: " + obj.progress + "%");
+								$("#taskProgressbar{MD5TASKID}").progressbar("option", "value", obj.progress);
+							}
+						}
+					}
+				}
+		});
+	}, 2000);
+});
+//]]>
+</script>

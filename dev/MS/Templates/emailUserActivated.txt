@@ -1,0 +1,12 @@
+Hallo {USERNAME}!
+
+Soeben wurde ihr Account freigeschaltet.
+
+Sie können sich ab sofort mit dem Benutzernamen '{USERNAME}' und dem von Ihnen angegebenen Passwort anmelden!
+
+
+Beachten Sie, dass diese Email automatisch erzeugt wurde. Bitte beantworten Sie diese nicht.
+
+Schöne Grüße,
+
+Das Team von ...

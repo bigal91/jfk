@@ -1,0 +1,18 @@
+
+<p>Welcome to the Metior Solution's Surveyplatform!</p>
+<br />
+<p>Your account has been noted, but you need to follow the following steps, to finish your registration:</p>
+<br />
+<p>1.) Click on the following URL, to finish your registration.</p>
+<br />
+{ACTIVATION_LINK}
+<br />
+<p>2.) If you see a page, that says: "Your Registration has been successfull. You may now login.", then you have registered yourself in time.</p>
+<br />
+<p>If you don't click on the link within {HOURS} hours, your account will be removed and you can try to register again,
+with the same Data provided.</p>
+<br />
+<br />
+Regards, <br />
+< br/>
+The Metior Solutions SurveyPlatform<br />

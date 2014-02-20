@@ -1,0 +1,35 @@
+<div style="margin: 0 20px 0 22px;">
+	<div class="pageMainButtons">
+		<button id="bCreateUser">Create a new User</button>
+	</div>
+	<p>In this view you can administrate your Users.</p>
+	<div class="clear"></div>
+	<div style="margin: 30px 0 0 0"></div>
+	<div class="pageSectionDivider">Users</div>
+{USERTABLE}
+</div>
+
+{DLGCREATEUSER}
+{DLGUSERINFO}
+{DLGCHANGEPASSWORD}
+<script type="text/javascript">
+/* <![CDATA[*/
+	$(function() {
+		getFeedBack("page.users", '#feedBackContainer');
+
+		$("#bCreateUser").button();
+		$('#bCreateUser').click(function() {
+			$('#createUserDialog').dialog('open');
+		});
+
+
+        var hashCommand = location.hash;
+        if (hashCommand.substring(1, 5) == 'open') {
+            showClientInfo(hashCommand.substring(6));
+        }
+        if (hashCommand.substring(1, 7) == 'create') {
+            $('#bCreateUser').click();
+        }
+	});
+/* ]]> */
+</script>

@@ -1,0 +1,33 @@
+<div id="createClientDialog" title="Create Client" style="display:none;">
+	<form id="createClientForm" action="{$BASEURL$}/client/create">
+	{TABLE_EDITCLIENT}
+	</form>
+</div>
+<script type="text/javascript">
+/* <![CDATA[*/
+$(function() {
+	$("#createClientDialog").dialog({
+		autoOpen: false,
+		height: 380,
+		width: 750,
+		modal: true,
+		open: function(event, ui) {
+			augmentDialogWithMaximizeButton($(this), 'createClientDialog');
+		},
+		buttons: {
+			'Create Client': function() {
+				$(this).dialog('close');
+				showWait();
+				$('#createClientForm').submit();
+			},
+			'Cancel' : function() {
+				$(this).dialog('close');
+			}
+		},
+		Cancel: function() {
+			$(this).dialog('close');
+		}
+	});
+});
+/* ]]> */
+</script>

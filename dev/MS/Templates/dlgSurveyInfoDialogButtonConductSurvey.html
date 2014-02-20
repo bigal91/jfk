@@ -1,0 +1,14 @@
+<a class="dlgButton" id="bConductSurveyConfirm" onclick="confirmRelease();" style="float: left;">Release this survey</a>
+<a class="gui-icon-button-PAGE_WHITE_MAGNIFY_BIG" style="float:right;" title="Preview Questionnaire" target="_blank"  href="/participate?pid=preview&reset=1&surveyID={SURVEYID}"></a>
+<input style="display: none;" type="submit" id="bConductSurvey" name="bConductSurvey" value="" />
+<script type="text/javascript">
+	/* <![CDATA[ */
+	function confirmRelease(){
+		var releaseSurvey = confirm('This will release the survey so that your participants can start answering the questionnaire. Are you sure?');
+		if (releaseSurvey) {		
+			showWait();
+			$("#bConductSurvey").click();
+		}	
+	}
+	/* ]]> */
+</script>

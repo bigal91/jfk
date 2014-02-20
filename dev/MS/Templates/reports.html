@@ -1,0 +1,45 @@
+<div class="innerContainer">
+	<div class="pageMainButtons">
+		{CREATE_REPORT}
+	</div>
+	<p>
+		In this section you can analyse the results of your survey in detail by
+	</p>
+	<ol style="list-style: decimal; list-style-position: inside; font-weight: bold;">
+		<li>
+			Viewing your results in the overall summary view <img src="{$BASEURL$}/gfx/icons/open_report_big.png" style="vertical-align: middle; margin: 3px;" />				
+		</li>
+		<li>
+			Creating further own reports <em>(see button on the right)</em>
+		</li>
+		<li>
+			Downloading your quantitative or qualitative result report as pdf <img src="{$BASEURL$}/gfx/icons/pdf_big.png" style="vertical-align: middle; margin: 3px;" />
+		</li>
+	</ol>
+</div>
+	
+{TABLE_REPORTS}
+{DLGCREATEREPORT}
+<form id="deleteReportForm" action="{BASEURL}/report/delete">
+	<input type="hidden" id="deleteReport" name="deleteReport" />
+</form>
+<script type="text/javascript">
+/* <![CDATA[ */
+ $(document).ready(function() {
+	getFeedBack("page.reports", '#feedBackContainer');
+	$("#bCreateReportType").button();
+
+ 	$('#bCreateReportType').click(function() {
+ 		$('#createReportDialog').dialog('open');
+ 	});
+ });
+
+function confirmDeleteReport (reportId){
+	 Check = confirm("Are you sure, you want to delete this report?");
+	 if (Check == true){
+		 $('#deleteReport').val(reportId);
+		 $('#deleteReportForm').submit();
+	 }
+}
+/* ]]> */
+</script>

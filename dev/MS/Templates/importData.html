@@ -1,0 +1,17 @@
+<div class="innerContainer">
+	<form id="importDataForm" action="" method="POST" enctype="multipart/form-data">
+		<p>
+			Select a file to import:
+			<input type="file" name="file" />
+			<input type="submit" name="bImport" value="Import" id="bImport" />
+		</p>
+	</form>
+</div>
+<script type="text/javascript">
+/* <![CDATA[*/
+	$(function() {
+		$("#bImport").button();
+		getFeedBack("page.dataImport", '#feedBackContainer');
+	});
+/* ]]> */
+</script>

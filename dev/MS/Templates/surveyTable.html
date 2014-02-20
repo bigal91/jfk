@@ -1,0 +1,42 @@
+<style type="text/css">
+	#surveyTable {
+		width: 100%;
+		border: 1px #DADCFF solid;
+		border-collapse: collapse;
+		border-spacing: 0px;
+	}
+	
+	#surveyTable th {
+		font-weight: bold;
+		text-align:left;
+		/*background: #FFD799;*/
+		padding: 2px;
+	}
+	
+	#surveyTable td {
+		font-weight: normal;
+		text-align:left;
+		padding: 4px 2px 4px 2px;
+	}
+	
+	.columnButtons {
+		width: {BUTTONCOLUMNWIDTH}px; /* this is 20 * buttonCount */
+		padding: 4px 2px 4px 1px;
+	}
+</style>
+{TABLE_RUNNING_SURVEYS}
+{TABLE_CLOSED_SURVEYS}
+{TABLE_TEMPLATE_SURVEYS}
+{DIALOGSURVEYINFO}
+<script type="text/javascript">
+/* <![CDATA[*/
+	$(function() {
+		augmentDataTableHeadersWithTooltips();
+		/* open the info dialog if #open=123 is given in the URI*/
+		var hashCommand = location.hash;
+		if (hashCommand.substring(1, 5) == 'open') {
+			showsurveyInfo(hashCommand.substring(6));
+		}
+	});
+/* ]]> */
+</script>

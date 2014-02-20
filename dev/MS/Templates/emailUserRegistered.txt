@@ -1,0 +1,7 @@
+Es hat sich soeben ein Benutzer registriert.
+
+Benutzername: {USERNAME}
+Email: {EMAIL}
+
+
+Zum freischalten auf die Webseite gehen: http://de.cinovo.surveyplatform.de:8080/main

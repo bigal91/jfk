@@ -1,0 +1,311 @@
+<style type="text/css">
+	#participantTable {
+		width: 100%;
+		/*
+		border: 1px #DADCFF solid;
+		border-top: 1px #FFD799 solid;
+		border-bottom: 1px #FFD799 solid;
+		border-right: 1px #FFD799 solid;
+		border-left: 1px #FFD799 solid;*/
+		border-collapse: collapse;
+		border-spacing: 0px;
+	}
+
+	#participantTable th {
+		font-weight: bold;
+		text-align:left;
+		/*background: #FFD799;*/
+		padding: 2px;
+	}
+
+	#participantTable td {
+		font-weight: normal;
+		text-align:left;
+		padding: 4px 2px 4px 2px;
+	}
+
+	#columnButtons {
+		width: 55px;
+	}
+    #participantTable .columnName {
+        width: 350px;
+    }
+    #participantTable #columnNumber {
+        width: 40px;
+    }
+    .participantsInfoText{
+        margin-left:23px;
+    }
+	
+</style>
+	<p class="participantsInfoText">
+		On this page you <strong>can upload and administrate the participants</strong> of you survey and <strong>personalise the text of your invitation email</strong>,
+		when conducting your survey via the web. When <strong>recording data manually</strong> simply click on the individual participant and you are able to access the
+		questionnaire directly for recording.<br /><br />
+		Should participants not respond in time you are also able to send an individual <strong>reminder message</strong>.
+	</p>
+<div class="innerContainer">
+	<div style="float: right; height: 38px;padding:10px;">{ADDITIONALINFO}</div>
+
+<div class="clear"></div>
+<div class="pageSectionDivider">Participants</div>
+<!--  <div class="pageSectionDivider">-->
+<!--    <div class="pageSectionDividerMiddleWrapper">-->
+<!--      <div class="pageSectionDividerMiddle"></div>-->
+<!--    </div>-->
+<!--    <div class="pageSectionDividerLeft"><div class="pageSectionDividerTitle">Participants</div></div>-->
+<!--    <div class="pageSectionDividerRight"></div>-->
+<!--  </div>-->
+  {TEXT_EDITENABLED}
+  {TEXT_EDITDISABLED}
+  <div style="margin: 0px 0px 0px 0px;">
+    {BUTTON_EDITLIST}
+    {BUTTON_DOWNLOADPHONELIST}
+  </div>
+
+  <div style="margin: 10px 0px 20px 0px;">
+    <table id="participantTable" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr style="height: 20px;">
+          <th style="width: 30px";><input type="checkbox" onclick="checkSelectAll($(this));"/></th>
+          <th id="columnButtons">Actions</th>
+          <th id="columnNumber">No.</th>
+          <th class="columnName">Name</th>
+          <th id="columnInvited">Invited</th>
+          <th id="columnReminded">Reminded</th>
+          <th id="columnSubmitted">Submitted</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="7">
+            <div style="margin: 3px 0px 3px 0px; float: left;">
+              {COMMANDS}
+            </div>
+            <div style="float:right; margin: 3px 0px 3px 0px; text-align: right;">
+              {SELECTOPTIONS}
+            </div>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        {ROWS}
+      </tbody>
+    </table>
+	<div class="pageSectionDivider" style="margin-top: 30px;">Email settings</div>
+<!--	<div class="pageSectionDivider">-->
+<!--		<div class="pageSectionDividerMiddleWrapper">-->
+<!--			<div class="pageSectionDividerMiddle"></div>-->
+<!--		</div>-->
+<!--		<div class="pageSectionDividerLeft"><div class="pageSectionDividerTitle">Emails</div></div>-->
+<!--		<div class="pageSectionDividerRight"></div>-->
+<!--	</div>-->
+	 <p>
+		Within this function you can personalize the text of your Invitation email if you are conducting your survey via the web. Respondents will receive your personalized invitation in their email
+		account and can also be reminded in case they have not responded after a given period of time. You are then also able to individually adapt your reminder message.
+		<br /><br />
+	</p>
+	<button id="bEditInvitationEmail" title="Edit the text of the invitation email that is sent to each participant">Edit Invitation Email</button>
+	<button id="bEditReminderEmail" title="Edit the text of the reminder email that is sent to each participant">Edit Reminder Email</button>
+
+	<div>
+		<p>
+			You can edit your <b>Mail Sender Name (e.g. John Smith)</b> below:
+		</p>
+		<div style="height: 30px; padding: 7px 0 0 10px; width: 350px; background: #eeeeee;">
+			{EDIT_SENDERNAME_TEXTFIELD}
+		</div>
+		<p>
+			You can edit the <b>E-Mail Sender Address (e.g. john.smith@example.com)</b> below:
+		</p>
+		<div style="height: 30px; padding: 7px 0 0 10px; width: 350px; background: #eeeeee;">
+			{EDIT_EMAILSENDER_TEXTFIELD}
+		</div>
+	</div>
+    {IMPORTRECORDSSECTION}
+</div>
+{DLGPARTICIPANTADD}
+{DLGPARTICIPANTSIMPORT}
+{DLGPARTICIPANTSCOPY}
+{DLGPARTICIPANTINFO}
+{DLGEDITEMAILTEXT}
+</div>
+<script type="text/javascript">
+/* <![CDATA[*/
+function sendCommand(command) {
+  var reload = true;
+  if (command == '') {
+    /* do nothing */
+  } else if (command =='export') {
+	  reload = false;
+	  var tmpForm = '<form action="{$BASEURL$}/download?type=participations&surveyID={SURVEYID}" method="post">';
+	  var checkedControls = '';
+      $.each($('.participantCheckBox:checked'), function() {
+    	  checkedControls += '<input type="hidden" value="' + $(this).val() + '" name="participant[]" />';
+	  });
+      tmpForm += checkedControls;
+      tmpForm += '</form>';
+	  if (checkedControls == '') {
+		  if (!confirm('No participants are selected for exporting.\\n\\nDo you want to export ALL participants in this list instead?')) {
+			  return;
+		  }
+	  }
+	  $(tmpForm).submit();
+
+  } else if (command =='delete') {
+    deleteElements();
+  } else {
+
+	  if (command =='invite'){
+
+		var invList = '';
+	    $.each($('.participantCheckBox.stateInvited'), function() {
+	        if ($(this).attr('checked')) {
+	      		invList += $('#name' + $(this).val()).text() + "\\n";
+	        }
+	    });
+
+	    if(invList != '' && confirm('The following participants have already been invited:\\n' + invList + ' Do you want to Re-Invite the selected of them?')){
+		    command="reinvite";
+	    }
+	}
+		if (reload) {
+			ajax({
+			  url: ("{$BASEURL$}/participant/update?surveyID={SURVEYID}&cmd="+command),
+			  type: "POST",
+			  data: $('.participantCheckBox ').serialize(),
+			  success: function(result) {
+			    location.reload();
+			  }
+			});
+		}
+  }
+}
+function deleteElements() {
+  if (confirm('This will remove the selected participants from the survey. This cannot be undone! Are you sure?')) {
+    ajax({
+      url: ("{$BASEURL$}/participant/delete?surveyID={SURVEYID}"),
+      type: "POST",
+      data: $('.participantCheckBox ').serialize(),
+      success: function(result) {
+        location.reload();
+      }
+    });
+  }
+}
+
+function checkSelectAll(checkAll) {
+	if (checkAll.attr('checked')) {
+		$('.participantCheckBox').attr('checked', true);
+	} else {
+		$('.participantCheckBox').attr('checked', false);
+	}
+}
+
+$(document).ready(function() {
+	getFeedBack("page.participants", '#feedBackContainer');
+
+	$("button").button();
+	$(".runCommandButton").button();
+	$("#clickToReleaseSurveyButton").button();
+	$('#participantTable').dataTable({
+		"aaSorting": [[ 2, "asc" ], [ 3, "asc" ]],
+		"aoColumns": [
+		  			{"bSortable":false},
+		  			{"bSortable":false},
+		  			null,
+		  			null,
+		  			null,
+		  			null,
+		  			null
+		  		],
+		"sDom": 'fprt<"bottom"i>'
+		  	{include:dataTableDefaultSettings.js}
+	});
+	augmentDataTableHeadersWithTooltips();
+	$('#bAddParticipant').click(function() {
+		$('#addParticipantDialog').dialog('open');
+	});
+	$('#bImportParticipants').click(function() {
+		$('#importParticipantsDialog').dialog('open');
+	});
+	$('#bDownloadPhonelist').click(function() {
+		location.href="{$BASEURL$}/download?type=phonelist&surveyID={SURVEYID}";
+	});
+	$('#bImportRecords').click(function() {
+		$('#importDataRecordsDialog').dialog('open');
+	});
+
+
+	$('#bEditInvitationEmail').click(function() {
+		
+        ajax({
+            url: ("{$BASEURL$}/survey/retrieve?surveyID={SURVEYID}&part=emailSubjectInvite"),
+            type: "GET",
+            success:
+                function (result, status, xhr) {
+                    $('#emailSubject').val(result);
+                }
+        });
+        
+		ajax({
+			url: ("{$BASEURL$}/survey/retrieve?surveyID={SURVEYID}&part=emailInvite"),
+			type: "GET",
+			success:
+				function (result, status, xhr) {
+					if (xhr.status != 200) {
+					    var msg = "Sorry but there was an error: ";
+					    $('#editEmailTextDialog').html(msg + xhr.status + " " + xhr.statusText);
+					} else {
+						$('#emailText').val(result);
+						$('#textType').val('emailInvite');
+					}
+					$('#editEmailTextDialog').dialog('open');
+				},
+			error:
+				function (xhr, status, err) {
+				    var msg = "Sorry but there was an error: ";
+				    $('#editEmailTextDialog').html(msg + xhr.status + " " + xhr.statusText);
+					$('#editEmailTextDialog').dialog('open');
+				}
+		});
+	});
+
+	$('#bEditReminderEmail').click(function() {
+		
+        ajax({
+            url: ("{$BASEURL$}/survey/retrieve?surveyID={SURVEYID}&part=emailSubjectRemind"),
+            type: "GET",
+            success:
+                function (result, status, xhr) {
+                    $('#emailSubject').val(result);
+                }
+        });
+		
+		ajax({
+			url: ("{$BASEURL$}/survey/retrieve?surveyID={SURVEYID}&part=emailRemind"),
+			type: "GET",
+			success:
+				function (result, status, xhr) {
+					if (xhr.status != 200) {
+					    var msg = "Sorry but there was an error: ";
+					    $('#editEmailTextDialog').html(msg + xhr.status + " " + xhr.statusText);
+					} else {
+						$('#emailText').val(result);
+						$('#textType').val('emailRemind');
+					}
+					$('#editEmailTextDialog').dialog('open');
+				},
+			error:
+				function (xhr, status, err) {
+				    var msg = "Sorry but there was an error: ";
+				    $('#editEmailTextDialog').html(msg + xhr.status + " " + xhr.statusText);
+					$('#editEmailTextDialog').dialog('open');
+				}
+		});
+	});
+
+});
+
+/* ]]> */
+</script>

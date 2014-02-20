@@ -1,0 +1,29 @@
+body, td, pre {font-family: Arial;
+color: #777;font-size:100%}
+p {
+	font-family: Arial;
+	font-size: 12px;
+	color: #000;
+}
+h1 {
+font-weight: bold;
+font-size: 2em;
+color: #222;
+line-height: 200%;}
+h2 {font-weight: bold;
+font-size: 1.5em;
+color: #222;
+line-height: 210%;}
+h3 {font-weight: bold;
+font-size: 1.17em;
+color: #222;
+line-height: 230%;}
+h4 {font-weight: bold;
+font-size: 1em;
+color: #222;
+line-height: 260%}
+h5 {font-weight: bold;
+font-size: 0.83em;
+color: #222;
+line-height: 300%}
+h6 {font-size: .75em}

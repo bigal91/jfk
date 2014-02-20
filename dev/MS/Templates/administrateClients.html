@@ -1,0 +1,24 @@
+<div style="margin: 0 20px 0 22px;">
+	<div class="pageMainButtons">
+		<button id="bCreateClient">Create a new Client</button>
+	</div>
+	<p>In this view you can administrate your clients.</p>
+	<div class="clear"></div>
+	<div style="margin: 30px 0 0 0"></div>
+	<div class="pageSectionDivider">Clients</div>
+	{CLIENTTABLE}
+</div>
+{DLGCREATECLIENT}
+{DLGCLIENTINFO}
+<script type="text/javascript">
+/* <![CDATA[*/
+	$(function() {
+		getFeedBack("page.clients", '#feedBackContainer');
+
+		$("#bCreateClient").button();
+		$('#bCreateClient').click(function() {
+			$('#createClientDialog').dialog('open');
+		});
+	});
+/* ]]> */
+</script>

@@ -1,0 +1,95 @@
+<div id="addParticipantDialog" title="Add Participant" style="display:none;">
+	<form id="addParticipantForm">
+	<input type="hidden" name="surveyID" value="{SURVEYID}" />
+	<table cellpadding="0" cellspacing="0" class="gui-dialog-table">
+		<tr>
+			<td style="width: 200px;">
+				Name:
+			</td>
+			<td>
+			 	<input type="text" name="name" id="nameTextField" value="" class="gui-dialog-element" />
+			 </td>
+		</tr>
+		<tr>
+			<td>
+				Surname:
+			</td>
+			<td>
+			 	<input type="text" name="surname" id="surnameTextField" value="" class="gui-dialog-element" />
+			 </td>
+		</tr>
+		<tr>
+			<td>
+				Contact Email:
+			</td>
+			<td>
+				<input type="text" name="email" id="emailTextField" value="" class="gui-dialog-element" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Contact Telephone:
+			</td>
+			<td>
+				<input type="text" name="phone" id="phoneTextField" value="" class="gui-dialog-element" />
+			</td>
+		</tr>
+		{SPECIALPROPERTIES}
+	</table>
+	</form>
+</div>
+<script type="text/javascript">
+/* <![CDATA[*/
+$(function() {
+$("#addParticipantDialog").dialog({
+	autoOpen: false,
+	height: 300,
+	width: 700,
+	modal: true,
+	open: function(event, ui) {
+		augmentDialogWithMaximizeButton($(this), 'addParticipantDialog');
+	},
+	buttons: {
+		'Add Participant': function() {
+			$(this).dialog('close');
+			ajax({
+				url: ("{$BASEURL$}/participant/create"),
+				type: "POST",
+				data: $('#addParticipantForm').serialize(),
+				success:
+					function (result) {
+						var obj = jQuery.parseJSON(result);
+						addParticipant(obj);
+					}
+			});
+		},
+		'Close' : function() {
+			$(this).dialog('close');
+		}
+	},
+	Cancel: function() {
+		$(this).dialog('close');
+	}
+});
+});
+
+
+function addParticipant(participant) {
+	if (participant) {
+		$('#participantTable').dataTable().fnAddData( [
+		                                    '<input type="checkbox" value="'+participant.id+'" name="participant[]" class="participantCheckBox stateNew" />',
+		                                    '{DEFAULTICON}',
+		                                    participant.number,
+		                              		'<a href="javascript:void(0);" title="Show Details" onclick="showParticipantInfo('+participant.id+')"><span id="name'+participant.id+'">' + participant.name+ ' '+participant.surname + '</span></a>',
+		                              		'',
+		                              		'', '' ] );
+		$('#nameTextField').val('');
+		$('#surnameTextField').val('');
+		$('#emailTextField').val('');
+		$('#phoneTextField').val('');
+		window.setTimeout(function() {$('#clickToReleaseSurveyButton').fadeIn('fast');}, 1500);
+	}
+	getFeedBack("page.participants", '#feedBackContainer');
+}
+/* ]]> */
+</script>

@@ -1,0 +1,13 @@
+<p>An error occured in the Survey Platform</p>
+
+<p>
+User: {USER}
+</p>
+<p>
+Message: {MESSAGE}
+</p>
+<p>
+Exception:<br />
+{EXCEPTION}
+</p>
+ 

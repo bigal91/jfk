@@ -1,0 +1,7 @@
+package constants;
+
+public class EnvConfiguration {
+	public static enum ConfigID {
+		LOGIN_ENABLED, USER_NAME, USER_PASSWORD, USER_MAIL
+	}
+}

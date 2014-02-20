@@ -1,0 +1,34 @@
+<div id="createUserDialog" title="Create User" style="display:none;">
+	<form id="createUserForm" action="{$BASEURL$}/user/create">
+	<input type="hidden" name="groupID" value="{GROUPID}" />
+	{TABLE_EDITUSER}
+	</form>
+</div>
+<script type="text/javascript">
+/* <![CDATA[*/
+$(function() {
+	$("#createUserDialog").dialog({
+		autoOpen: false,
+		height: 660,
+		width: 750,
+		modal: true,
+		open: function(event, ui) {
+			augmentDialogWithMaximizeButton($(this), 'createUserDialog');
+		},
+		buttons: {
+			'Create User': function() {
+				$(this).dialog('close');
+				showWait();
+				$('#createUserForm').submit();
+			},
+			'Cancel' : function() {
+				$(this).dialog('close');
+			}
+		},
+		Cancel: function() {
+			$(this).dialog('close');
+		}
+	});
+});
+/* ]]> */
+</script>

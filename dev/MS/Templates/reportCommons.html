@@ -1,0 +1,604 @@
+<style>
+
+	.freeTextFilterBoxContainer {
+		height: 200px;
+		border: 1px solid #D5D5D5;
+		padding: 10px;
+		display: none;
+	}
+
+	.filterTextBox {
+		height: 35px;
+	}
+
+	.itemContainer {
+		overflow: auto;
+		height: 280px;
+		margin-bottom: 10px;
+	}
+
+    .hintListContainer {
+        overflow: auto;
+        height: 180px;
+        margin-bottom: 10px;
+    }
+
+    .frequencyBar_white{
+        color: #FFFFFF;
+    }
+    
+    .frequencyBar_darkBlue{
+        color: #0000CC;
+    }
+    
+    .frequencyBar_blue {
+        color: #0033FF;
+    }
+    
+	.frequencyBar {
+		height: 20px;
+		width: 70px;
+		float: left;
+		font-weight: bold;
+		text-align: center;
+		line-height: 20px;
+		background: url('./gfx/frequencyBar.jpg');
+		background-repeat: no-repeat;
+		border: 1px solid #0c72c9;
+		margin: 0 5px 0 0;
+	}
+
+	.itemText {
+		padding: 0 5px 0 5px;
+		font-size: 12px;
+		display: block;
+	}
+
+    .hintListContainer > a {
+        float: left;
+        width: 200px;
+        height: auto;
+        padding: 3px;
+        line-height: 22px;
+        text-decoration: none;
+        border: 1px solid #ffffff;
+    }
+
+	.itemContainer > div {
+		float: left;
+		width: 130px;
+		height: 120px;
+		padding: 3px;
+		line-height: 22px;
+		text-decoration: none;
+		margin: 2px;
+		background-color: #227DCC;
+		border-radius: 3px;
+	}
+	
+	.itemContainer * {
+	   color: #FEFEFE;
+	}
+	
+	.questionarePage .hintListContainer a:hover span.frequencyBar {
+        color: white;	
+	}
+
+
+/* 		.itemContainer > a:hover { */
+/* 			border: 1px solid #D5D5D5; */
+/* 			font-weight: bold; */
+/* 		} */
+
+	.freeTextFilterTopicContainer {
+		margin-bottom: 2px;
+		height: 280px;
+		border: 1px solid #D5D5D5;
+		padding: 5px 0px 10px 14px;
+		display: block;
+	}
+
+	.answerControl {
+		height:16px;
+		width:16px;
+		cursor: pointer;
+	}
+
+	.topicControl {
+		cursor: pointer;
+		margin: 3px;
+	}
+
+    .answerTagged {
+        border: 1px solid #9fd3fa;
+		color: #888;
+        background: #EAF4FD;
+		font-weight: normal;
+        cursor: pointer;
+	}
+	
+	.ui-button.smallButton {
+    	font-size: 11px;
+    	width: 140px;
+    }
+    a.ui-button.smallButton {
+        margin: 2px 2px 0 0;
+        vertical-align: top;
+    }
+    a.ui-button.smallButton:hover .ui-button-text {
+        color: #8e8e8e;
+    }
+	.ui-button.smallButton .ui-button-text {
+	    color: #8e8e8e;
+		line-height: 0.6;
+    }
+    
+    .dropDownForm {
+	    position: absolute;
+		display: none;
+		background: #DFEFFC;
+		border: 1px solid #C5DBEC;
+		padding: 10px;
+		margin: 21px 0 10px 5px;
+		width: 116px;
+		font-size: 12px;
+    }
+    
+    .topicForm {
+        margin: 0px;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+    }
+    
+    .chartTypeForm{
+        margin: 15px 0px 0px 4px;
+    }
+    
+    .exportForm {
+	    top: 0px;
+	    left: 293px;
+	}
+    
+    .topicDropTarget {
+		color: #979797;
+		background: #DFDFDF;
+		text-align: center;
+		margin: 0px 0px 0px 0px;
+		padding: 20px;
+		border: 1px solid #C4C4C4;
+    }
+    
+    .topicDropTargetHover {
+		background: #EFEFEF;
+    }
+    
+    .topicItemTable {
+    	height: 114px;
+    	width: 124px;
+    }
+    
+    .topicItemTable td.topicTitle {
+    	text-align: center;
+    	vertical-align: middle;
+    	width: 124px;
+		overflow: hidden;
+		max-width: 124px;
+    }
+    
+    .topicItemTable td.topicControls {
+    	height: 20px;
+    	text-align: right;
+    }
+    
+    .topicItemTable td.topicAnswerCount span {
+		width: 29px;
+		height: 20px;
+		display: block;
+		color: #FDBA63;
+		text-align: center;
+		font-size: 12px;
+		line-height: 20px;
+		cursor: pointer;		
+    }
+    
+    .itemContainer > div.topicHover {
+    	background-color: #3088D3;
+    }
+
+    .itemContainer > div.topicAssignedHover {
+    	background-color: #F7941E;
+    }
+    
+    
+    .answerHoverControl {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 20px;
+        padding: 0px;
+        border: #3088D3 1px solid;
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+        background: #3088D3;
+    }
+
+    .answerHoverControl + div  {
+        padding: 4px 4px 4px 4px;
+        border: #3088D3 1px solid; 
+    }
+    
+    .answerHoverControls *, .answerHoverTopicTitle * {
+        color: white;
+    }
+    .answerHoverControls, .answerHoverTopicTitle {
+        background: #3088D3;
+        padding: 3px 5px 0 5px;
+		height: 17px;
+		text-align: left;        
+    }
+    
+    .answerHoverTopicTitle {
+    	text-align: center;
+    }
+    
+    .answerHoverControls > span {
+        cursor: pointer;
+    }
+    
+     .answerHoverControls > .btn {
+        margin: 0 0 0 3px;
+        text-decoration: underline;
+    }
+
+    .btnUnTag {
+        display: none;
+    }
+    
+    .blend * {
+        color: #EAEAEA;
+        background-color: #FFF;
+    }
+    
+    .filtered > .answerTagged, .filtered.answerTagged, .filtered {
+        border: 0;
+        color: #EAEAEA;
+        background: none;
+        font-weight: normal;
+        cursor: default;
+    }
+    
+    .filterhighlight.answerTagged {
+        border: 1px solid #FFAAAA;
+        color: #888;
+        background: #FCE8B1;
+        font-weight: normal;
+        cursor: pointer;        
+    }
+    
+    .selectATopic {
+		margin: 5px 20px 5px 20px;
+		border: 1px solid #6BBBFF;
+		background: #3088D3;
+		color: white;
+		padding: 3px;
+		cursor: pointer;
+    }
+    
+    .answerTaggedHover {
+        background-color: #FCE8B1;
+    }
+    .answerTaggedHighlight {
+        background-color: #FCE8B1;
+    }    
+    
+
+</style>
+<script type="text/javascript">
+/* <![CDATA[*/
+            
+var __selectionStarted = false;
+$(function() {
+   $('.button').button();
+   $('.topicTitle').live('mouseenter', function() {
+	   $('.itemContainer > div').removeClass('topicAssignedHover');
+	   /* climbing up the hill*/
+	   $(this).parent().parent().parent().parent().addClass('topicHover');
+	   var topicID = $(this).parent().parent().parent().attr('id').substring(5);
+	   $('*[data-assignedto="'+topicID+'"]').addClass('answerTaggedHighlight');
+   });
+   $('.topicTitle').live('mouseleave', function() {
+	   $('.answerTaggedHighlight').removeClass('answerTaggedHighlight');
+	   $('.itemContainer > div').removeClass('topicAssignedHover');
+       /* climbing up the hill*/
+	   $(this).parent().parent().parent().parent().removeClass('topicHover');
+   });
+
+   /* 
+    When hovering over an answer, a overlay is created which has controls for this answer
+    for tagging, untagging, etc...
+    */
+   $('.answerContainer').live('mouseenter', function() {
+	   $('.itemContainer > div').removeClass('topicAssignedHover');
+	   var dataMapsterID = $(this).data('datamapster');
+	   if ($('#freeTextAnalyzer' + dataMapsterID).is(':visible')) {
+		   var cell = $(this).parent();
+		   var answerID = $(this).find('.answer').data('answerid');
+		   if (cell.find('.answerHoverControl').size() == 0 && cell.text() != '') {
+			   /* remove all possible open hovercontrols */
+			   $('.answerHoverControl').remove();
+			   
+			   /* calculate the position of the new hover control */
+			   var position = cell.position();
+			   var width = cell.width();
+			   var height = 45;
+			   var yoffset = height;
+			   $("<div class=\"answerHoverControl\">").prependTo(cell)
+				      .css('left', position.left)
+				      .css('top', position.top - yoffset)
+		              .css('width', width - 1)
+		              .css('height',  height)
+				      .append('<div id="assignedTopic' + answerID + '" style="height: 20px;"></div>' + getAnswerControls(dataMapsterID)).show();
+		   }
+	   }
+   });
+   
+   $('.answerTagged').live('mouseenter', function() {
+       $(this).addClass("answerTaggedHover");
+       var topicID = $(this).data('assignedto');
+       $('#assignedTopic' + $(this).parent().data('answerid')).html(getAssignedTopic(topicID));
+       $('#topic' +topicID).parent().addClass('topicAssignedHover');
+   });
+
+   $('.answerTagged').live('mouseleave', function() {
+       $(this).removeClass("answerTaggedHover");
+       var topicID = $(this).data('assignedto');
+       $('#assignedTopic' + $(this).parent().data('answerid')).html('');
+       $('#topic' +topicID).parent().removeClass('topicAssignedHover');
+   });
+
+   $('.answerTaggedHover').live('click', function() {
+       var topicID = $(this).data('assignedto');
+       var answerID = $(this).data('comboid');
+       var mapsterID = $(this).parentsUntil('.answerContainerContainer', '.answerContainer').data('datamapster');
+       if (confirm('Do you really want to remove the the answer "' + $(this).text() + '" from the topic "' + $('#topic' + topicID).find('.itemText').text() + '"?')) {
+    	    eval('removeAnswerFromTopic' + mapsterID + '('+answerID+','+topicID+')');
+       }
+   });
+   
+   $('.exportForm').live('mouseleave', function() {
+       $(this).slideUp();
+   });
+   $('.chartTypeForm').live('mouseleave', function() {
+       $(this).slideUp();
+   });
+   
+   /* remove the overlay when leaving the answer */
+   /* REMOVED BECAUSE THIS DOES NOT WORK IN FIREFOX/IE
+   $('.answerContainer').live('mouseleave', function(event) {
+	   if (!$(event.toElement).hasClass('answerHoverControl')) {
+           $('.answerHoverControl').remove(); 
+       }
+   });
+   */
+   $('.answerHoverControl').live('mouseleave', function(event) {
+       if (!$(event.toElement).hasClass('answerContainer')) {
+           $('.answerHoverControl').remove(); 
+       }
+   });
+   
+   $('.btnTag').live('click', function() {
+	   var answerObj = $(this).parent().parent().parent().find('.answer');
+	   var answerComboPart = answerObj.data('answerid') + "_-1_-1_-1";
+	   var mapsterID = answerObj.parent().data('datamapster');
+	   openAssignAnswerDialog(answerObj.text(), answerComboPart, mapsterID);	   
+   });
+});
+
+/** create the controls for the answers **/
+function getAnswerControls(dataMapsterID) {
+	var controls = '<div class="answerHoverControls">';
+    controls += '<span class="btn btnTag btnTag' + dataMapsterID  +'" title="click to assign this answer to a new or existing topic">assign to topic</span>';
+	controls += '</div>';
+	return controls;
+}
+
+/** get an element containing the assigned topic title **/
+function getAssignedTopic(topicId) {
+	var topic = $('#topic' + topicId);
+	if (topic.size() == 0) return '';
+	
+	var topicTitle = topic.find('.itemText').text();
+	if (topicTitle.length > 35) {
+		topicTitle = topicTitle.substr(0, 35) + '...';
+	}
+	
+	return '<div class="answerHoverTopicTitle"><span>' + topicTitle + "</span></div>";
+}
+
+/** let the topic flash yeah **/
+function topicHighLight(topicId) {
+	highLight($('#topic' + topicId).parent());
+}
+
+function highLight(element) {
+    element.effect('highlight',{color: '#8AC5F8'}, 2000);
+}
+
+function blend(element) {
+	element.css("color", "#EAEAEA");
+	element.addClass("filtered");
+	element.find('.answerTagged').removeClass('filterhighlight');
+}
+function show(element, comboID) {
+    element.css("color", "#777");
+    element.removeClass('filtered');
+    if (comboID) {
+	    element.find('.answerTagged').each(function() {
+	    	if ($(this).data('comboid')==comboID) {
+	    	    $(this).addClass('filterhighlight');  
+	    	}
+	    	
+	    });
+    } else {
+    	element.find('.answerTagged').removeClass('filterhighlight');
+    }
+}
+
+/** 
+ * Prepares the search text in a way such as word endings are removed (currently only for the english language)
+ */
+function prepareSearchWordArray(searchText) {
+    /* Eliminate double spaces */
+    searchText = searchText.replace ("  ", " ");
+
+    var searchWordArray = searchText.split(" ");
+    for (var i = 0; i < searchWordArray.length; i++){
+        var wordLength = searchWordArray[i].length;
+        var word = searchWordArray[i];
+        if (word.substr(wordLength - 4) == "ment" ||
+            word.substr(wordLength - 4) == "able"){
+                searchWordArray[i] = word.substr(0,wordLength - 4);
+        } else if ( word.substr(wordLength - 3) == "ies" ||
+                    word.substr(wordLength - 3) == "ing" ||
+                    word.substr(wordLength - 3) == "est"){
+            searchWordArray[i] = word.substr(0,wordLength - 3);
+        } else if ( word.substr(wordLength - 2) == "er" ||
+                    word.substr(wordLength - 2) == "en" ||
+                    word.substr(wordLength - 2) == "ed"){
+            searchWordArray[i] = word.substr(0,wordLength - 2);
+        } else if (word.substr(wordLength - 1) == "s") {
+            searchWordArray[i] = word.substr(0,wordLength - 1);
+        }
+    }
+    return searchWordArray;
+}
+
+
+function correctCutPositions(topicCombination, answerHtml) {
+    var nextSpan = answerHtml.indexOf('<');
+    
+    while(nextSpan <= topicCombination.cutFrom && nextSpan != -1) {
+        var nextSpanEnd = answerHtml.indexOf('>', nextSpan);
+        var offset = nextSpanEnd - nextSpan + 1;
+        topicCombination.cutFrom = parseInt(topicCombination.cutFrom) + offset;
+        topicCombination.cutTo = parseInt(topicCombination.cutTo) + offset;
+        nextSpan = answerHtml.indexOf('<', nextSpan + 1);
+    }
+    /* nachkorrektur fuer das cutTo falls es jetzt innerhalb eines spans gelandet ist*/
+    while (nextSpan <= topicCombination.cutTo && nextSpan != -1) {
+        var nextSpanEnd = answerHtml.indexOf('>', nextSpan );
+        var offset = nextSpanEnd - nextSpan + 1;
+        topicCombination.cutTo = parseInt(topicCombination.cutTo) + offset;
+        nextSpan = answerHtml.indexOf('<', nextSpan + 1);
+    }
+    
+    return topicCombination;
+}
+
+/**
+ * Shows/Hides the mark for a tagged answer (e.g. we don't want to see them if the datamapster ist closed) 
+ */
+function toggleAnswerMarks(datamapsterId, enabled) {
+     $('.answerHoverControl').remove();
+     
+     /* remove all answertags */
+     $('p.answer' + datamapsterId).each(function() {
+         $(this).stripTags();
+     });
+     
+     $("#freeTextFilterTopicContainer" + datamapsterId + " > .itemContainer > div").each(function() {
+         var topicTable = $(this).find('table');
+         var combos = topicTable.find('.itemText').data('combo');
+         if (combos && combos != '') {
+             var tcList = splitTopicCombination(combos);
+             var size = tcList.length;
+             for (i = 0; i < size; i++) {
+                 var current = tcList[i];
+                 var answerObj = $('.answer' + datamapsterId + '.id' + current.answerID);
+                 if (answerObj.size() != 0) {
+                     if (enabled) {
+                         var answerContent = answerObj.html();
+                         var topicID = topicTable.attr('id').substring(5);
+
+                         current = correctCutPositions(current, answerContent);
+                         
+                         var wrappedSpan = answerContent;
+                         if (current.cutFrom >= 0 && current.cutTo > 0) {
+                             wrappedSpan = answerContent.substring(0, current.cutFrom)
+                                        + '<span title="Click to unassign from topic" class="answerTagged" data-comboid="' + current.id + '" data-assignedTo="' + topicID + '">'
+                                        + answerContent.substring(current.cutFrom, current.cutTo)
+                                        + '</span>'
+                                        + answerContent.substring(current.cutTo);
+                         } else {
+                             wrappedSpan = '<span title="Click to unassign from topic" class="answerTagged" data-comboid="' + current.id + '" data-assignedTo="' + topicID + '">' + answerContent + '</span>';
+                         }
+                         answerObj.html(wrappedSpan);
+                     } else {
+                         answerObj.find('span').removeClass('answerTagged');
+                     }
+                 }
+             }
+         }
+     });
+     
+     if (enabled) {
+         $(".answer" + datamapsterId).live('mousedown', function(event) {
+             __selectionStarted = true;
+         });
+         
+         $(".answer" + datamapsterId).live('mouseup', function(event) {
+             if (__selectionStarted) {
+                 __selectionStarted = false;
+                 var selection = getSelectionInfo($(this));
+                 if (selection.text != ''){
+                     openAssignAnswerDialog(selection.text, $(this).data('answerid') + "_" + selection.start  + "_" + selection.end + "_-1", $(this).parent().data('datamapster'));
+                 }
+                 
+             }
+         });
+     } else {
+         __selectionStarted = false;
+         $(".answer" + datamapsterId).unbind('mousedown');
+         $(".answer" + datamapsterId).unbind('mouseup');
+     }
+ }
+
+function openAssignAnswerDialog(answerText, answerComboPart, mapsterID) {
+    $("#answerCutPart" + mapsterID).text(answerText);
+    $("#answerComboPart" + mapsterID).val(answerComboPart);
+    if ($('.topic' + mapsterID).size() == 0) {
+        $('#chooseTopicHeadline' + mapsterID).hide();
+    } else {
+        $('#chooseTopicHeadline' + mapsterID).show();
+        $("#existingTopics" + mapsterID).html("");
+        var answerIDs = $('#answerComboPart' + mapsterID).val();
+        $('.topic' + mapsterID).each(function(event){
+            $("#existingTopics" + mapsterID).append('<p class="selectATopic" onClick="addAnswerToTopic' + mapsterID + '(\'' + answerIDs + '\', ' + $(this).attr('id').substring(5) +');">' + $(this).find('.itemText').text() + '</p>');                                   
+        });
+    }
+    $('#assignPartTextDialog' + mapsterID).dialog('open');
+}
+
+function splitTopicCombination(combo) {
+	var combos = combo.split('::');
+	var tcList = [];
+	for (i = 0; i < combos.length; i++) {
+		var part = combos[i];
+		if (part.indexOf('_') > 0) {
+		    var parts = part.split('_');
+		    tcList.push({
+		    	"answerID" : parts[0],
+	            "cutFrom"  : parts[1],
+	            "cutTo"    : parts[2],
+	            "id"       : parts[3]
+		    });
+		}
+	}
+	return tcList;
+}
+/* ]]> */
+</script>

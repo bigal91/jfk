@@ -1,0 +1,49 @@
+<div id="importDataRecordsDialog" title="Import Data Records" style="display:none;">
+	<form id="importDataRecordsForm" action="{$BASEURL$}/participant/update" method="POST" enctype="multipart/form-data">
+	<input type="hidden" name="surveyID" value="{SURVEYID}" />
+	<table cellpadding="0" cellspacing="0" class="gui-dialog-table">
+		<tr>
+			<td>
+				Choose the file to import (xml file):
+			</td>
+		</tr>
+		<tr>
+			<td>
+			 	<input type="file" name="fromFile" id="recordfileField" class="gui-dialog-element" />
+			 </td>
+		</tr>
+	</table>
+	</form>
+</div>
+<script type="text/javascript">
+/* <![CDATA[*/
+$(function() {
+
+$("#importDataRecordsDialog").dialog({
+	autoOpen: false,
+	height: 300,
+	width: 600,
+	modal: true,
+	open: function(event, ui) {
+		augmentDialogWithMaximizeButton($(this), 'importDataRecordsDialog');
+	},
+	buttons: {
+		'Import': function() {
+			if($('#recordfileField').val() != '') {
+				$(this).dialog('close');
+				showWait();
+				$('#importDataRecordsForm').submit();
+			}
+			$(this).dialog('close');
+		},
+		'Close' : function() {
+			$(this).dialog('close');
+		}
+	},
+	Cancel: function() {
+		$(this).dialog('close');
+	}
+});
+});
+/* ]]> */
+</script>

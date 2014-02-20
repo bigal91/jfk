@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupTemplateContainer>
+<!--     <template name="Administration"> -->
+<!--         <userRight>ALL</userRight> -->
+<!--         <userRight>CREATE_INDIVIDUAL_REPORTS</userRight> -->
+<!--         <userRight>DONT_NEED_CREDITS</userRight> -->
+<!--         <userRight>RECORD_DATA</userRight> -->
+<!--         <userRight>EDIT_QUESTIONNAIRES</userRight> -->
+<!--         <userRight>CREATE_SURVEYS</userRight> -->
+<!--         <userRight>CREATE_PUBLIC_TEMPLATES</userRight> -->
+<!--         <userRight>MANAGE_PARTICIPANTS</userRight> -->
+<!--         <userRight>EXPORT_RAW_DATA</userRight> -->
+<!--         <userRight>DONT_NEED_PAYMENTMODEL</userRight> -->
+<!--         <userRight>MAKE_OFFLINE_RECORDING</userRight> -->
+<!--         <userRight>MAKE_PHONE_INTERVIEWS</userRight> -->
+<!--         <userRight>SHOW_REPORTS</userRight> -->
+<!--         <userRight>CREATE_TEMPLATES</userRight> -->
+<!--         <userRight>EDIT_ORGANIZATIONS_PROPERTIES</userRight> -->
+<!--         <userRight>DOWNLOAD_EMPTY_QUESTIONNAIRES</userRight> -->
+<!--         <userRight>MANAGE_SURVEYS</userRight> -->
+<!--         <userRight>DEMO</userRight> -->
+<!--         <userRight>CREATE_GROUPS</userRight> -->
+<!--     </template> -->
+    <template name="Standard">
+        <userRight>CREATE_INDIVIDUAL_REPORTS</userRight>
+        <userRight>RECORD_DATA</userRight>
+        <userRight>EDIT_QUESTIONNAIRES</userRight>
+        <userRight>CREATE_SURVEYS</userRight>
+        <userRight>MANAGE_PARTICIPANTS</userRight>
+        <userRight>MAKE_OFFLINE_RECORDING</userRight>
+        <userRight>MAKE_PHONE_INTERVIEWS</userRight>
+        <userRight>SHOW_REPORTS</userRight>
+        <userRight>CREATE_TEMPLATES</userRight>
+        <userRight>EDIT_ORGANIZATIONS_PROPERTIES</userRight>
+        <userRight>DOWNLOAD_EMPTY_QUESTIONNAIRES</userRight>
+        <userRight>MANAGE_SURVEYS</userRight>
+        <userRight>CREATE_GROUPS</userRight>
+    </template>
+    <template name="Recorder">
+        <userRight>RECORD_DATA</userRight>
+        <userRight>MAKE_OFFLINE_RECORDING</userRight>
+    </template>
+    <template name="Phone interviewer">
+        <userRight>RECORD_DATA</userRight>
+        <userRight>MAKE_OFFLINE_RECORDING</userRight>
+        <userRight>MAKE_PHONE_INTERVIEWS</userRight>
+    </template>
+    <template name="Subdivision">
+        <userRight>CREATE_INDIVIDUAL_REPORTS</userRight>
+        <userRight>RECORD_DATA</userRight>
+        <userRight>EDIT_QUESTIONNAIRES</userRight>
+        <userRight>CREATE_SURVEYS</userRight>
+        <userRight>MANAGE_PARTICIPANTS</userRight>
+        <userRight>MAKE_OFFLINE_RECORDING</userRight>
+        <userRight>MAKE_PHONE_INTERVIEWS</userRight>
+        <userRight>SHOW_REPORTS</userRight>
+        <userRight>CREATE_TEMPLATES</userRight>
+        <userRight>DOWNLOAD_EMPTY_QUESTIONNAIRES</userRight>
+        <userRight>MANAGE_SURVEYS</userRight>
+    </template>
+</groupTemplateContainer>

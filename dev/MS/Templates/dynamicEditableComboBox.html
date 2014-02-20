@@ -1,0 +1,21 @@
+<div style="width: 20px; float:right;"><span id="{ID}EditButton" class="gui-icon-button-PAGE_WHITE_EDIT link" title="Edit"></span><span id="{ID}SaveButton" class="gui-icon-button-DISK link invisible" title="Save"></span></div><span id="{ID}" class="editableProperty">{VALUE}</span>
+<script type="text/javascript">
+/* <![CDATA[*/
+$(function() {
+	var oldValue{ID} = $('#{ID}').text();
+	$('#{ID}SaveButton').hide();
+	$("#{ID}EditButton").click(function() {
+		$('#{ID}EditButton').hide();
+		$('#{ID}SaveButton').show();
+		$('#{ID}').html('<select class="gui-inplace-textfield" id="{ID}editableTextField" type="text" name="{NAME}">{OPTIONS}</select>');
+		$('#{ID}editableTextField').focus();			
+	});
+
+	$("#{ID}SaveButton").click(function() {
+		{SAVEACTION}
+		$('#{ID}EditButton').show();
+		$('#{ID}SaveButton').hide();
+	});
+});
+/* ]]> */	
+</script>

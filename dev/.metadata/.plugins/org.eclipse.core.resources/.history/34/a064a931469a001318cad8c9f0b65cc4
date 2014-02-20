@@ -1,0 +1,15 @@
+package constants;
+
+import java.util.HashMap;
+import java.util.Map;
+
+
+public class EnvConfiguration {
+	public static enum ConfigID {
+		LOGIN_ENABLED, USER_NAME, USER_PASSWORD, USER_MAIL
+	}
+	
+	private static final Map<ConfigID, Object> configuration = new HashMap<ConfigID, Object>();
+	
+	
+}

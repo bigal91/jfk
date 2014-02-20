@@ -1,0 +1,139 @@
+<div style="width: 500px; margin: 10px auto 10px auto;">
+	<div id="feedBackContainer"></div>
+	<form id="register" action="{$BASEURL$}/client/create" method="POST">
+		<p>To create an account, please fill in all the following fields</p>
+		<table style="margin: 20px 10px 10px 10px;">
+			<tr>
+				<td><label>Username: </label></td>
+				<td>
+				    <input type="text" name="regUserName" id="regUserName" />
+				</td>
+				<td style="position: absolute;">
+				    <div id="namePopup" style="position: absolute; width: 200px;"></div>
+				</td>
+			</tr>
+			<tr>
+				<td><label>Password: </label></td>
+				<td><input type="password" name="regUserPassword"
+					id="regUserPassword" /></td>
+			</tr>
+			<tr>
+				<td><label>Repeat Password: </label></td>
+				<td><input type="password" name="regUserPasswordRepeat"
+					id="regUserPasswordRepeat" /></td>
+			</tr>
+			<tr>
+				<td><label>E-Mail: </label></td>
+				<td>
+				    <input type="text" name="regUserEmail" id="regUserEmail" />
+				</td>
+			</tr>
+			<tr>
+				<td><label>Title: </label></td>
+				<td><input type="text" name="regUserTitle" id="regUserTitle" /></td>
+			</tr>
+			<tr>
+				<td><label>Forename: </label></td>
+				<td><input type="text" name="regUserForename"
+					id="regUserForename" /></td>
+			</tr>
+			<tr>
+				<td><label>Surname: </label></td>
+				<td><input type="text" name="regUserSurname"
+					id="regUserSurname" /></td>
+			</tr>
+			<tr>
+				<td><label>Address: </label></td>
+				<td><input type="text" name="regUserAdress" id="regUserAdress" /></td>
+			</tr>
+			<tr>
+				<td><label>Telephone: </label></td>
+				<td><input type="text" name="regUserTelephone"
+					id="regUserTelephone" /></td>
+			</tr>
+			<tr>
+				<td>Date Format:</td>
+				<td>{DATEFORMAT_COMBO}</td>
+			</tr>
+			<tr>
+				<td>Time Zone:</td>
+				<td>{TIMEZONE_COMBO}</td>
+			</tr>
+			<tr>
+				<td><input type="hidden" name="otherData" id="otherData" /></td>
+			</tr>
+		</table>
+		<div>
+			<input type="hidden" name="regUserClientToken"
+				id="regUserClientToken" value="{CLIENT_TOKEN}" />
+		</div>
+		<p>
+			<input type="submit" style="margin: 0 auto;" value="Next" name="registerUser" id="registerUser" />
+		</p>
+	</form>
+</div>
+
+<script type="text/javascript">
+	/*          */
+	var keyTimeOut;
+	$(function() {
+		$('#registerUser').button();
+		$("#registerUser")
+				.live(
+						"click",
+						function() {
+							if ($("#regUserName").val() == ""
+									|| $("#regUserPassword").val() == ""
+									|| $("#regUserPasswordRepeat").val() == ""
+									|| $("#regUserEmail").val() == ""
+									|| $("#regUserForename").val() == ""
+									|| $("#regUserSurname").val() == "") {
+								alert("Bitte füllen Sie alle Felder aus, die mit (*) markiert sind!");
+								return false;
+							}
+						});
+		getFeedBack("taskID", "#feedBackContainer");
+	});
+
+	$('#regUserName').live(
+			'keyup',
+			function() {
+				window.clearTimeout(keyTimeOut);
+				var _this = $(this);
+				keyTimeOut = window.setTimeout(function() {
+					$("#namePopup").hide();
+					_this.css("color", "black");
+					// check username correct
+					var typedName = _this.val();
+					var pattern = /[^\\w@\\._\\-\\+]/i;
+					var result = typedName.match(pattern);
+					if (result != null) {
+						_this.css("color", "red");
+						_this.attr("title", "Invalid Character in Username");
+						$("#namePopup").text("Invalid Character in Username");
+						$("#namePopup").toggle();
+					} else {
+						// check username unique
+						ajax({
+							url : ("{$BASEURL$}/user/retrieve?typedName="
+									+ typedName + "&checkName=1"),
+							type : "POST",
+							success : function(match) {
+								if (match != "") {
+									$("#namePopup").text(match);
+									$('#regUserName').css("color", "red");
+									$('#regUserName').attr("title", "");
+									$("#namePopup").toggle();
+								} else {
+									$("#namePopup").text("");
+									$('#regUserName').css("color", "black");
+									$('#regUserName').attr("title", "");
+								}
+							}
+						});
+					}
+				}, 1000);
+
+			});
+	/*     */
+</script>

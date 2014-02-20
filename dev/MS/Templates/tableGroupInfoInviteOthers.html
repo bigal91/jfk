@@ -1,0 +1,10 @@
+    <div class="gui-dialog-divider"></div>
+    <form id="invitationForm" method="POST">
+        <p>Invite new Users to the Group:</p>
+        <input id="mailBox" type="text" name="mails" class="msgBox" /><br />
+        <a id="toggleMessageBox" href="javascript:void(0);">Send extra
+            Message to the User? </a><br />
+        <textarea id="messageBox" name="message" class="msgBox"></textarea>
+        <button id="inviteNewUsers">Invite new Users to Group</button>
+        <input type="hidden" name="groupToken" value="{GROUP_TOKEN}" />
+    </form>

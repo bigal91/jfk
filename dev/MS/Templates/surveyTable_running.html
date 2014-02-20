@@ -1,0 +1,61 @@
+<div class="innerContainer">
+	<div class="helpNextToBigHeader">{HELPLINK}</div>
+<div class="pageSectionDivider">
+	<div class="pageSectionDividerRightContent"></div>
+	{SECTIONHEADER}
+</div>
+<!--<div class="pageSectionDivider">-->
+<!--	<div class="pageSectionDividerMiddleWrapper">-->
+<!--		<div class="pageSectionDividerMiddle"><div class="pageSectionDividerRightContent">{HELPLINK}</div></div>-->
+<!--	</div>-->
+<!--	<div class="pageSectionDividerLeft"><div class="pageSectionDividerTitle">{SECTIONHEADER}</div></div>-->
+<!--	<div class="pageSectionDividerRight"></div>-->
+<!--</div>-->
+<table id="surveyTableRunning{IDSUFFIX}" class="surveyTable" cellpadding="0" cellspacing="0" width="100%">
+	<thead>
+		<tr>
+			<th></th>
+			<th class="columnButtons">Actions</th>
+			<th class="columnName">Name of Survey</th>
+			<th class="columnCreator">Owner</th>
+			<th class="columnCreated">Status</th>
+			<th class="columnResponserate">Response rate<span style="width: 20px; display: inline-block;"></span></th>
+			<th class="columnHighlight"></th>
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<td colspan="7">
+				<div style="margin: 3px 0px 3px 0px; text-align: left;">
+					{COMMANDS}
+				</div>
+			</td>
+		</tr>
+	</tfoot>
+	<tbody>
+		{ROWS_RUNNING}
+	</tbody>
+</table>
+<br />
+</div>
+<script type="text/javascript">
+/* <![CDATA[*/
+	$(function() {
+		$('#surveyTableRunning{IDSUFFIX}').dataTable({
+		"aaSorting": [[ 2, "asc"]],
+		"aaSortingFixed": [[6,'asc']],
+		"aoColumns": [
+		  			{"bSortable":false},
+		  			{"bSortable":false},
+		  			null,
+		  			null,
+		  			null,
+		  			null,
+		  			{"bVisible":false}
+		  		]
+		  {SHOW_ALL_STYLE}
+		  	{include:dataTableDefaultSettings.js}
+		});
+	});
+/* ]]> */
+</script>

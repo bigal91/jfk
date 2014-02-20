@@ -1,0 +1,108 @@
+<table cellpadding="0" cellspacing="0" class="gui-dialog-table">
+	<tr>
+		<td style="width: 150px;">
+			Username*:
+		</td>
+		<td>
+		 	<input type="text" name="userName" id="userNameTextField" value="" class="gui-dialog-element" />
+		 </td>
+		 <td>
+            <img src="./gfx/icons/help.png" title="No blanks in Username allowed"></img>
+		 </td>
+	</tr>
+	<tr>
+		<td>
+			Email*:
+		</td>
+		<td>
+		 	<input type="text" name="email" id="emailTextField" value="" class="gui-dialog-element" autocomplete="off" />
+		 </td>
+	</tr>
+	<tr><td colspan="2"><div class="gui-dialog-divider"></div></td></tr>
+	<tr>
+		<td>
+			Password*:
+		</td>
+		<td>
+		 	<input type="password" name="password1" id="password1TextField" value="" class="gui-dialog-element" autocomplete="off" />
+		 </td>
+	</tr>
+	<tr>
+		<td>
+			Repeat Password*:
+		</td>
+		<td>
+		 	<input type="password" name="password2" id="password2TextField" value="" class="gui-dialog-element" autocomplete="off" />
+		 </td>
+	</tr>
+	<tr><td colspan="2"><div class="gui-dialog-divider"></div></td></tr>
+	<tr>
+		<td>
+			Title:
+		</td>
+		<td>
+			<select name="title" id="titleCombo">
+				<option>Mrs.</option>
+				<option>Mr.</option>
+			</select>
+		 </td>
+	</tr>
+	<tr>
+		<td>
+			First Name:
+		</td>
+		<td>
+			<input type="text" name="firstName" id="firstNameTextField" value="" class="gui-dialog-element" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Last Name:
+		</td>
+		<td>
+			<input type="text" name="lastName" id="lastTextField" value="" class="gui-dialog-element" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Address:
+		</td>
+		<td>
+		 	<input type="text" name="address" id="addressTextField" value="{ADDRESS}" class="gui-dialog-element" />
+		 </td>
+	</tr>
+	<tr>
+		<td>
+			Telephone:
+		</td>
+		<td>
+			<input type="text" name="phone" id="phoneTextField" value="{PHONE}" class="gui-dialog-element" />
+		</td>
+	</tr>
+	<tr><td colspan="2"><div class="gui-dialog-divider"></div></td></tr>
+	<tr>
+		<td>
+			Timezone:
+		</td>
+		<td>
+			{TIMEZONE_COMBO}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Dateformat:
+		</td>
+		<td>
+			{DATEFORMAT_COMBO}
+		</td>
+	</tr>
+		<tr><td colspan="2"><div class="gui-dialog-divider"></div></td></tr>
+	<tr>
+		<td>
+			<p>Send e-mail with login data to the new user?</p>
+		</td>
+		<td>
+			<input type="checkbox" id="sendUserCreatedMail" name="sendUserCreatedMail" value="userCreatedMail"  style="margin-left: 20px;"/>
+		</td>
+	</tr>
+</table>

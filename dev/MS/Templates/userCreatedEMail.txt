@@ -1,0 +1,21 @@
+
+Welcome to Metior Solutions {USERNAME}!
+
+You have just created a new Account on the Metior Solutions Survey Platform.
+This E-Mail has been sent to you, for your own information.
+It contains details about your new account.
+
+YOUR NAME + LOGIN DATA:
+-----------------------------------------------------------------------
+	Username: {USERNAME}
+	Password: {PASSWORD}
+	Firstname: {FIRSTNAME}
+	Lastname: {LASTNAME}
+	Organization: {ORGANIZATION}
+	Telephone: {TELEPHONE}
+	Account Type: {ACCOUNTTYPE}
+
+
+Thank you for registering on the Metior Solutions Survey Platform!
+
+Questions? Please contact: info@metior-solutions.com

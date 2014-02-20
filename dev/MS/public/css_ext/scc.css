@@ -1,0 +1,66 @@
+/* this is used as a workaround for: http://support.microsoft.com/kb/262161 */
+
+@import url('../css/main.css');
+@import url('../css/menu.css');
+@import url('../css/questionnaire.css');
+
+/* JqueryUI Overrides */
+.ui-widget { font-family: Arial, Lucida Grande, Lucida Sans, sans-serif; font-size: 15px; }
+.ui-widget .ui-widget { font-size: 15px; }
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Arial, Lucida Grande, Lucida Sans, sans-serif; font-size: 15px; }
+
+.ui-dialog .ui-dialog-titlebar-maximize { position: absolute; right: 24px; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
+.ui-dialog .ui-dialog-titlebar-maximize span { display: block; margin: 1px; }
+.ui-dialog .ui-dialog-titlebar-maximize:hover, .ui-dialog .ui-dialog-titlebar-maximize:focus { padding: 0; }
+
+.ui-button { display: inline-block;*display: inline; position: relative; padding: 0; margin-right: 2px; text-decoration: none !important; cursor: pointer; text-align: center; zoom: 1; overflow: visible; } /* the overflow property removes extra width in IE */
+.ui-button-icon-only { width: 23px; } /* to make room for the icon, a width needs to be set here */
+button.ui-button-icon-only { width: 26px; } /* button elements seem to need a little more width */
+.ui-button-icons-only { width: 36px; } 
+button.ui-button-icons-only { width: 311px; }
+.ui-button-text-only .ui-button-text { padding: 6px 16px; }
+.ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text { padding: 6px; text-indent: -9999999px; }
+.ui-button-text-icon-primary .ui-button-text, .ui-button-text-icons .ui-button-text { padding: 6px 16px 6px 22px; }
+.ui-button-text-icon-secondary .ui-button-text, .ui-button-text-icons .ui-button-text { padding: 6px 22px 6px 16px; }
+.ui-button-text-icons .ui-button-text { padding-left: 22px; padding-right: 22px; }
+input.ui-button { padding: 6px 16px; }
+.ui-button-text-icon-primary .ui-button-icon-primary, .ui-button-text-icons .ui-button-icon-primary, .ui-button-icons-only .ui-button-icon-primary { left: 8px; }
+.ui-button-text-icon-secondary .ui-button-icon-secondary, .ui-button-text-icons .ui-button-icon-secondary, .ui-button-icons-only .ui-button-icon-secondary { right: 8px; }
+.ui-button-text-icons .ui-button-icon-secondary, .ui-button-icons-only .ui-button-icon-secondary { right: 8px; }
+.ui-buttonset .ui-button { margin-left: 0; margin-right: -5px; }
+.ui-progressbar { height:32px; text-align: left; }
+
+
+/*
+@import url('/css/styledBox.css');
+@import url('/css/attributeSection.css');
+@import url('/css/dynamic.css');
+@import url('/css/dynamicStyledBox.css');
+@import url('/css/dynamicStyledBoxCyan.css');
+@import url('/css/dynamicStyledBoxLila.css');
+@import url('/css/dynamicStyledBoxBlue.css');
+@import url('/css/dynamicMiniStyledBoxCyan.css');
+@import url('/css/dynamicStyledBoxGreen.css');
+@import url('/css/dynamicMiniStyledBoxGreen.css');
+@import url('/css/dynamicStyledBoxOrange.css');
+@import url('/css/dynamicMiniStyledBoxOrange.css');
+@import url('/css/dynamicMicroStyledBoxOrange.css');
+@import url('/css/dynamicMicroStyledBoxCyan.css');
+@import url('/css/dynamicMicroStyledBoxLila.css');
+@import url('/css/dynamicMiniStyledBoxLila.css');
+@import url('/css/dynamicMicroStyledBoxBlue.css');
+@import url('/css/dynamicMiniStyledBoxBlue.css');
+@import url('/css/rateableCriteriaBox.css');
+@import url('/css/dynamicSpeechBubbleBox.css');
+@import url('/css/verySmallScalaBox.css');
+@import url('/css/buttons.css');
+@import url('/css/dynamicMiniSpeechBubbleBox.css');
+@import url('/css/tagCloud.css');
+@import url('/css/newsBox.css');
+@import url('/css/chromeBox.css');
+@import url('/css/singleLineChromeBox.css');
+@import url('/css/dynamicFlatBoxBigRed.css');
+@import url('/css/dynamicFlatBoxRed.css');
+@import url('/css/dynamicFlatBoxBigBlue.css');
+@import url('/css/dynamicFlatBoxBlue.css');
+@import url('/css/dynamicChromeBox.css');*/

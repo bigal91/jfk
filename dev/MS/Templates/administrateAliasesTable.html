@@ -1,0 +1,93 @@
+<style type="text/css">
+	#userTable {
+		width: 100%;
+		border: 1px #DADCFF solid;
+		border-collapse: collapse;
+		border-spacing: 0px;
+	}
+
+	#userTable th {
+		font-weight: bold;
+		text-align:left;
+		/*background: #FFD799;*/
+		padding: 2px;
+	}
+
+	#userTable td {
+		font-weight: normal;
+		text-align:left;
+		padding: 4px 2px 4px 2px;
+	}
+
+	.columnButtons {
+		width: {BUTTONCOLUMNWIDTH}px; /* this is 20 * buttonCount */
+		padding: 4px 2px 4px 1px;
+	}
+</style>
+<table id="userTable" cellpadding="0" cellspacing="0">
+	<thead>
+		<tr>
+			<th class="columnButtons"></th>
+			<th class="columnButtons"></th>
+			<th class="columnName">Username</th>
+			<th>Status</th>
+			<th>Created on</th>
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<td colspan="5">
+				<div style="margin: 3px 0px 3px 0px; text-align: left;">
+					{COMMANDS}
+				</div>
+			</td>
+		</tr>
+	</tfoot>
+	<tbody>
+		{ROWS}
+	</tbody>
+	<br />
+</table>
+{DLGUSERINFO}
+<script type="text/javascript">
+/* <![CDATA[*/
+$(document).ready(function() {
+	$(".runCommandButton").button();
+
+	$('#userTable').dataTable({
+		"aaSorting": [[ 2, "asc" ]],
+		"aoColumns": [
+		  			{"bSortable":false},
+		  			{"bSortable":false},
+		  			null,
+		  			null,
+		  			null
+		  		],
+		"sDom": 'fprt<"bottom"<"manageSurveysOverall"i>>'
+		  	{include:dataTableDefaultSettings.js}
+	});
+	augmentDataTableHeadersWithTooltips();
+});
+
+function sendCommand(command) {
+	if (command == '') {
+		/* do nothing */
+	} else if (command =='delete') {
+		deleteElements();
+	}
+}
+
+function deleteElements() {
+	if (confirm('This will remove the selected users(s) permanently which cannot be undone. Remove the users(s) now?')) {
+		ajax({
+			url: ("{$BASEURL$}/user/delete"),
+			type: "POST",
+			data: $('.userCheckBox ').serialize(),
+			success: function(result) {
+				location.reload();
+			}
+		});
+	}
+}
+/* ]]> */
+</script>

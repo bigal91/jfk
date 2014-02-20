@@ -1,0 +1,23 @@
+<style>
+<!--
+#selectGroupTreeTable {width: 100%; margin: 20px 0 0 0;}
+#selectGroupTreeTable tbody td { padding: 3px; }
+#selectGroupTreeTable tbody tr:hover td { background-color: #F0F0F0 !important; }
+#selectGroupTreeTable tbody td:hover { background-color: #F0F0F0 !important; }
+-->
+</style>
+<table id="selectGroupTreeTable" cellpadding="0" cellspacing="0">
+  <thead>
+    <tr>
+      <td colspan="2">Select parent group</td>
+    </tr>
+  </thead>
+  <tbody>
+  	<tr>
+		<td style="width: 30px;"><input type="radio" checked="checked" id="selectGroupRadio0" name="parentGroup" value="0"></td>
+		<td style="padding-left: 0px;"><label for="selectGroupRadio0">- No parent -</label></td>
+	</tr>
+    {ROWS}
+  </tbody>
+  <tfoot></tfoot>
+</table>
