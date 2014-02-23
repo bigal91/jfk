@@ -1,10 +1,14 @@
 package util;
 
 import java.io.File;
+import java.util.Set;
+
+import javax.persistence.Entity;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
 import resources.ResourcePaths;
 
@@ -12,17 +16,27 @@ import resources.ResourcePaths;
 
 public class HibernateUtil {
 	
-	private static SessionFactory SESSIONFACTORY = HibernateUtil.buildSessionFactory();
-	private static StandardServiceRegistryBuilder serviceRegistry;
+	private static final SessionFactory SESSIONFACTORY = HibernateUtil.buildSessionFactory();
 	
 	private static SessionFactory buildSessionFactory() {
 		try {
 			
 			Configuration configuration = new Configuration();
 			configuration.configure(new File(ResourcePaths.CONFIG + "/hibernate.cfg.xml"));
-			serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
-			SESSIONFACTORY = configuration.buildSessionFactory(serviceRegistry.build());
-			return SESSIONFACTORY;
+			/*
+			Reflections reflections = new Reflections("");
+			
+			Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(Entity.class);
+			
+			for (Class<?> clazz : annotated) {
+				configuration.addAnnotatedClass(clazz);
+			}
+			*/
+			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+			SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+			
+			return sessionFactory;
+			
 		} catch (Throwable ex) {
 			// Make sure you log the exception, as it might be swallowed
 			System.out.print("Initial SessionFactory creation failed." + ex);
@@ -44,8 +58,4 @@ public class HibernateUtil {
 		return clazz;
 	}
 	
-	public static void destroySessionFactory() {
-		HibernateUtil.SESSIONFACTORY.close();
-		HibernateUtil.SESSIONFACTORY = HibernateUtil.buildSessionFactory();
-	}
 }

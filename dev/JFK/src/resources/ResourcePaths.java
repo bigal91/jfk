@@ -7,5 +7,5 @@ public class ResourcePaths {
 	
 	public final static String HTML_FILE_PATH = WC + File.separator +  "html";
 	
-	public final static String CONFIG = WC + File.separator + "config";
+	public final static String CONFIG = "config";
 }

@@ -1,0 +1,30 @@
+<div>
+	<form action="{$BASEURL$}/login" method="post">
+		<table>
+			<tr>
+				<td>Username: </td>
+				<td><input type="text" name="uname" /></td>
+			</tr>
+			<tr>
+				<td>Password: </td>
+				<td><input type="text" name="pword" /></td>
+			</tr>
+			<tr>
+				<td><input type="submit"  value="Login" id="bLogin"/></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<!--
+	<form action="{$BASEURL$}/login{QUERYSTRING}" method="post">
+		<p style="margin-top:5px">
+			<label for="uname">Username</label>
+			<input type="text" name="uname" id="uname" value="{USERNAME}" style="width: 200px;" />
+		</p>
+        {PASSWORD_FIELD}
+		<p style="margin-top:7px">
+			<input type="submit" value="Login" name="bLogin" id="bLogin" onclick="showWait();" />
+			{LOST_PASSWORD_LINK}
+		</p>
+	</form>
+-->

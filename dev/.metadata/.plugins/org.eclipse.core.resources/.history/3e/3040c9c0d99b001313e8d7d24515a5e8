@@ -1,0 +1,9 @@
+<div>
+	<table>
+		<tr>
+			<td>Username: </td>
+			<td><input type="text" name="uname" /></td>
+		</tr>
+		<tr></tr>
+	</table>
+</div>

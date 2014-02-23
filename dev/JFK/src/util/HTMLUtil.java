@@ -10,6 +10,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import constants.EnvConfiguration;
+
+
 public class HTMLUtil {
 	
 	private final static Map<String, String> templateCache = new ConcurrentHashMap<String, String>();
@@ -128,7 +131,7 @@ public class HTMLUtil {
 				// **************
 				
 				// TODO (URL BASE as second param)
-				content = content.replaceAll("\\{\\$BASEURL\\$\\}", "/");
+				content = content.replaceAll("\\{\\$BASEURL\\$\\}", "");
 				
 				for (Entry<String, String> entry : includeMap.entrySet()) {
 					String replacement = entry.getValue().replaceAll("\\$", "UP_DOLLAR_UP");

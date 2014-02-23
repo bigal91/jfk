@@ -46,8 +46,7 @@ public class MainEntryPoint  extends HttpServlet {
 		resp.setContentType("text/html; charset=" + DEFAULT_ENCODING);
 		resp.setCharacterEncoding(DEFAULT_ENCODING);
 		req.setCharacterEncoding(DEFAULT_ENCODING);
-		// TODO
-		// SystemUser currentUser = AuthUtil.checkAuth(req);
+
 		StringBuilder sb = new StringBuilder();
 		
 		req.getSession().setAttribute(Constants.ATTR_VISITED_LINK, "/" + req.getRequestURI() + (req.getQueryString() == null ? "" : ("?" + req.getQueryString())));

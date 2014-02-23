@@ -1,0 +1,46 @@
+package startup;
+
+import model.User;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+
+import constants.EnvConfiguration;
+import util.AuthorizationUtil;
+import util.HibernateUtil;
+import util.Logger;
+
+public class Init {
+	public static void initialize(){
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = s.beginTransaction();
+		try{
+			// create admin user
+			// test if user exists, before inserting
+			boolean userExists = false;
+			try{
+				Criteria crit = s.createCriteria(User.class);
+				crit.add(Restrictions.eq("userName", EnvConfiguration.getDefaultUsername()));
+				crit.add(Restrictions.eq("userPassword", AuthorizationUtil.scramblePassword(EnvConfiguration.getDefaultUserPassword())));
+				User dbUser = (User) crit.uniqueResult();
+				if (dbUser != null){
+					userExists = true;
+				}
+			} catch (Exception e){
+				e.printStackTrace();
+				userExists = true;
+			}
+			if (!userExists){
+				User user = new User(EnvConfiguration.getDefaultUsername(), EnvConfiguration.getDefaultUserPassword(), "juliakost@t-online.de");
+				s.save(user);
+				tx.commit();				
+			}
+		} catch (Exception e){
+			Logger.err("Es ist etwas beim Initialisieren schiefgegangen");
+		} finally {
+			s.close();
+		}
+	}
+}

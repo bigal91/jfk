@@ -1,0 +1,26 @@
+package startup;
+
+import model.User;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import util.HibernateUtil;
+import util.Logger;
+
+public class Init {
+	public static void initialize(){
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = s.beginTransaction();
+		try{
+			// create admin user
+			User user = new User("juliakost", "jfk0912", "juliakost@t-online.de");
+			s.save(user);
+			tx.commit();
+		} catch (Exception e){
+			Logger.err("Es ist etwas beim Initialisieren schiefgegangen");
+		} finally {
+			s.close();
+		}
+	}
+}
