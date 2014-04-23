@@ -12,5 +12,4 @@ public class JournalismContainer extends AbstractContainer{
 		// TODO Auto-generated method stub
 		
 	}
-
 }
