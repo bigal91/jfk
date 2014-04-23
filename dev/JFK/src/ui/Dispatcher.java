@@ -17,7 +17,7 @@ public class Dispatcher extends AbstractContainer{
 
 	private LoginContainer loginContainer = new LoginContainer();
 	private StartContainer startContainer = new StartContainer();
-	private PrContainer prContainer = new PrContainer();
+	private PrMarketingContainer prContainer = new PrMarketingContainer();
 	private BlogContainer blogContainer = new BlogContainer();
 	private StorytellingContainer storyContainer = new StorytellingContainer();
 	

@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import model.User;
 
-public class PrContainer extends AbstractContainer  {
+public class PrMarketingContainer extends AbstractContainer  {
 
 	@Override
 	public void provideContent(HttpServletRequest request,
