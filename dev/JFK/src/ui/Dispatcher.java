@@ -20,6 +20,7 @@ public class Dispatcher extends AbstractContainer{
 	private PrMarketingContainer prContainer = new PrMarketingContainer();
 	private BlogContainer blogContainer = new BlogContainer();
 	private StorytellingContainer storyContainer = new StorytellingContainer();
+	private AddBlogEntryContainer addBlogEntryContainer = new AddBlogEntryContainer();
 	
 	@Override
 	public void provideContent(HttpServletRequest request,
@@ -56,6 +57,8 @@ public class Dispatcher extends AbstractContainer{
 				blogContainer.provideContent(request, innerContent, currentUser);
 			} else if (page.equals(Pages.STORYTELLING)){
 				storyContainer.provideContent(request, innerContent, currentUser);
+			} else if (page.equals(Pages.ADD_BLOGENTRY)){
+				addBlogEntryContainer.provideContent(request, innerContent, currentUser);
 			}
 			if (currentUser != null) {
 				replacements.put("LOGOUT_LINK", "<a href=\"?page=logout\">logout</a>");
@@ -65,6 +68,7 @@ public class Dispatcher extends AbstractContainer{
 			
 		}catch (Exception e) {
 			replacements.put("CONTENT", "<p style=\"text-align: center;\"> the DISPATCHER caused an Error. (" + new SimpleDateFormat().format(new Date()) + ")<br /><br /></p>");
+			System.out.println(e);
 		}
 		
 		content.append(HTMLUtil.getHTMLFile(ResourcePaths.HTML_FILE_PATH + "/layout.html", replacements));

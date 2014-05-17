@@ -1,6 +1,5 @@
 package startup;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 
@@ -11,15 +10,14 @@ import org.eclipse.jetty.server.SecureRequestCustomizer;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.SessionManager;
-import org.eclipse.jetty.server.SslConnectionFactory;
 import org.eclipse.jetty.server.session.HashSessionManager;
 import org.eclipse.jetty.server.session.SessionHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.servlet.DefaultServlet;
-import org.eclipse.jetty.util.ssl.SslContextFactory;
 
 import constants.EnvConfiguration;
+import dal.BlogDal;
 import resources.ResourcePaths;
 import servlets.LoginServlet;
 import servlets.MainEntryPoint;
@@ -69,6 +67,10 @@ public class ServerStartup
         context.addServlet(new ServletHolder(new DefaultServlet()), "/");
 		context.addServlet(new ServletHolder(new MainEntryPoint()), "/main");
         context.addServlet(new ServletHolder(new LoginServlet()), "/login");
+        
+		BlogDal blogDal = new BlogDal();
+		context.addServlet(new ServletHolder(blogDal), "/blog/create");
+        
         
         /* Helper Servlets */
 		context.addServlet(new ServletHolder(new ClearCache()), "/" + ClearCache.class.getSimpleName());

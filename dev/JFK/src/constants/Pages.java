@@ -9,6 +9,7 @@ public class Pages {
 	public static final Object PR_AND_CONTENTMARKETING = "prcontent";
 	public static final Object BLOG = "blog";
 	public static final Object STORYTELLING = "story";
+	public static final Object ADD_BLOGENTRY = "addblogentry";
 	
 	
 }

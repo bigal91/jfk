@@ -48,8 +48,78 @@ th{
 	padding:0px;
 }
 
+.blogContent{
+	vertical-align: top;
+}
+
+.blogContentDivision{
+	vertical-align: top;
+}
+
+.blogEntry{
+	padding: 10px 20px 10px 20px;
+	color: black;
+}
+
+.blogInnerContent{
+	background-image: url(../gfx/blog/bg_repeat.png);
+	background-repeat: repeat-y;
+	width:600px;
+}
+
+.blogInnerContent_head{
+	background-image: url(../gfx/blog/bg_top.png);
+	background-repeat: no-repeat;
+	width:600px;
+	height:30px;
+}
+
+.blogTitle{
+	font-size: 1.5em;
+}
+
+.blogText{
+}
+
 .centerContent{
 	text-align:center;
+}
+
+.cfiller_01{
+	background-image: url(../gfx/blog/column/column_02.png);
+	width:200px;
+	height:87px;
+}
+
+.cfiller_02{
+	background-image: url(../gfx/blog/column/column_04.png);
+	width:200px;
+	height:73px;
+}
+
+.cfiller_03{
+	background-image: url(../gfx/blog/column/column_06.png);
+	width:200px;
+	height:72px;
+}
+
+.cfiller_04{
+	background-image: url(../gfx/blog/column/column_08.png);
+	width:200px;
+	height:82px;
+}
+
+.cfiller_05{
+	background-image: url(../gfx/blog/column/column_10.png);
+	width:200px;
+	height:45px;
+}
+
+
+.cfiller_06{
+	background-image: url(../gfx/blog/column/column_12.png);
+	width:200px;
+	height:70px;
 }
 
 .chalk{
@@ -63,6 +133,12 @@ th{
 	clear:both;
 }
 
+.columns{
+	background-image: url(../gfx/blog/column/column_01.png);
+	width:200px;
+	height: 62px;
+}
+
 .divider{
 	border-bottom-width:1px;
   	border-bottom-style:solid;
@@ -72,8 +148,17 @@ th{
   	margin:5px;
 }
 
+.divider_fat{
+	border-bottom-width:3px;
+  	border-bottom-style:solid;
+  	border-bottom-color:white;
+  	height:3px;
+  	clear:both;
+  	margin:0px;
+}
+
 .footerStyle{
-	width:800px;
+	width:1000px;
 	margin: 0 auto 0 auto;
 	
 }
@@ -86,14 +171,14 @@ th{
 }
 
 .headerStyle{
-	width:800px;
+	width:1000px;
 	height:50px;
 	margin: 0 auto 0 auto;
 }
 
 .headMenu{
-	width:800px;
-	height:320px;
+	width:1000px;
+	height:300px;
 }
 
 .loginBox{
@@ -108,67 +193,45 @@ th{
 
 .mainContainer{
 	color: white;
-	width:800px;
+	width:1000px;
 	display:block;
 	margin: 0 auto;
 	
 }
 
 .menue_01{
-	background-image: url(../gfx/menue/menue_01.png);
-	width: 800px;
-	height: 69px;
+	background-image: url(../gfx/menue/Polaroids_01.png);
+	width: 68px;
+	height: 223px;
 }
 
 .menue_02{
-	background-image: url(../gfx/menue/menue_02.png);
-	width: 17px;
-	height: 191px;
+	width: 214px;
+	height: 223px;
 }
 
 .menue_03{
-	width: 155px;
-	height: 191px;
+	width: 227px;
+	height: 223px;
 }
 
 .menue_04{
-	background-image: url(../gfx/menue/menue_04.png);
-	width: 34px;
-	height: 191px;
+	width: 231px;
+	height: 223px;
 }
 
 .menue_05{
-	width:158px;
-	height: 191px;
+	width:260px;
+	height: 223px;
 }
 
 .menue_06{
-	background-image: url(../gfx/menue/menue_06.png);
-	width: 48px;
-	height: 191px;
+	background-image: url(../gfx/menue/Polaroids_06.png);
+	background-repeat: no-repeat;
+	width: 1000px;
+	height: 27px;
 }
 
-.menue_07{
-	width: 143px;
-	height: 191px;
-}
-
-.menue_08{
-	background-image: url(../gfx/menue/menue_08.png);
-	width: 48px;
-	height: 191px;
-}
-
-.menue_09{
-	width:150px;
-	height: 191px;
-}
-
-.menue_10{
-	background-image: url(../gfx/menue/menue_10.png);
-	width: 47px;
-	height: 191px;
-}
 
 .silhouette{
   background-image: url(../gfx/woman_silhouette.png);
@@ -177,7 +240,7 @@ th{
 }
 
 .startPageTable{
-	width: 800px;
+	width: 1000px;
 	height: 800px;
 }
 
@@ -185,4 +248,10 @@ th{
 	background:  url(../gfx/stoneBG.jpg);
 	background-attachment: fixed;
 	background-position: center;
+}
+
+.titleInput{
+	width:500px;
+	height: 40px;
+	font-size: 1.2em;
 }

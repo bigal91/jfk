@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.reflections.Reflections;
 
 import resources.ResourcePaths;
 
@@ -23,7 +24,7 @@ public class HibernateUtil {
 			
 			Configuration configuration = new Configuration();
 			configuration.configure(new File(ResourcePaths.CONFIG + "/hibernate.cfg.xml"));
-			/*
+			
 			Reflections reflections = new Reflections("");
 			
 			Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(Entity.class);
@@ -31,7 +32,7 @@ public class HibernateUtil {
 			for (Class<?> clazz : annotated) {
 				configuration.addAnnotatedClass(clazz);
 			}
-			*/
+			
 			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 			SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 			

@@ -49,7 +49,7 @@ public class MainEntryPoint  extends HttpServlet {
 
 		StringBuilder sb = new StringBuilder();
 		
-		req.getSession().setAttribute(Constants.ATTR_VISITED_LINK, "/" + req.getRequestURI() + (req.getQueryString() == null ? "" : ("?" + req.getQueryString())));
+		req.getSession().setAttribute(Constants.ATTR_VISITED_LINK, req.getRequestURI() + (req.getQueryString() == null ? "" : ("?" + req.getQueryString())));
 		
 		sb.append(HTMLUtil.getHTMLFile(ResourcePaths.HTML_FILE_PATH + "/header.html", null));
 		// TODO create AUTH UTIL and get the CURRENT_USER

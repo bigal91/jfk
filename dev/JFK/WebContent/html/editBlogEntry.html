@@ -1,0 +1,41 @@
+<div id="editBlogEntry">
+	<form id="editBlogEntryForm" action="">
+		<p>
+			<input type="text" class="titleInput" id="blogTitle" name="blogTitle" placeholder="Titel eingeben" />
+		</p>
+		<p>
+			<textarea id="blogText" class="tMCE" name="blogText" placeholder="Inhalt des Blogeintrags"></textarea>
+		</p>
+		<p>
+			<select name="blogType">
+				<option value="quote_Monday">Quote Monday</option>
+				<option value="storyTelling">Storytelling</option>
+				<option value="essays">Essays</option>
+				<option value="journalism">Journalism</option>
+				<option value="pr_and_ContentMarketing">PR & Contentmarketing</option>
+				<option value="other">More Stuff</option>
+			</select>
+		</p>
+		<input type="button" value="Speichern" onclick="saveBlogEntry();return false" />
+	</form>
+</div>
+
+<script type="text/javascript">
+/* <![CDATA[*/
+    $(function() {
+
+    });
+    
+    function saveBlogEntry(){
+        $.ajax({
+            url: ("{$BASEURL$}/blog/create"),
+            type: "GET",
+            data: $('#editBlogEntryForm').serialize().replace('blogText=','') + '&blogText=' + escape(tinyMCE.get('blogText').getContent()),
+            success:
+                function (result) {
+                    
+                }
+        });
+    }
+/* ]]> */
+</script>
