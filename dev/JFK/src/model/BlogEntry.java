@@ -23,6 +23,7 @@ public class BlogEntry {
 	private String headLine;
 	private String text;
 	
+	private Boolean online = false;
 	private Date posted;
 	private Date lastModified;
 	
@@ -108,6 +109,15 @@ public class BlogEntry {
 
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+
+	@Column(columnDefinition = "boolean default false", nullable = false)
+	public Boolean getOnline() {
+		return online;
+	}
+
+	public void setOnline(Boolean online) {
+		this.online = online;
 	}
 	
 }
